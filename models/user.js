@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
     },
     Zentrum_ID: {
         type: Number,
-        required: true
+        required: true,
     },
     StudienID: {
         type: Number,

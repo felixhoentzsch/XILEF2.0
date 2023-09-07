@@ -1,35 +1,60 @@
-
+import { useRouter } from "next/router"
+import { useState } from "react"
+import axios from "axios"
 
 export default function loginCreate() {
+
+    const [benutzer, setBenutzer] = useState(null);
+    const [passwort, setPasswort] = useState(null);
+    const [error, setError] = useState(false);
+    const router = useRouter();
+
+    const login = async () =>{
+        // alert(benutzer + " " + passwort)
+        try{    
+            await axios.get("http://localhost:3000/api/login",{
+                benutzer,
+                passwort
+            })
+            console.log("geht")
+            router.push("/")
+        }catch(error){
+            setError(true)
+        }
+    }
+        
+
   return (
-    <div class="form-container">
-        <div class="headline">
-            <div class="brand">xilef
+
+    <div className="form-container">
+        <div className="headline">
+            <div className="brand">xilef
             </div>	
             <div>
                 <p>Anlegen einer neuen Studie</p>
             </div>
             {/* style="	font-size: 18px; font-weight: bold;" */}
-            <div class="hr-container">
-                <p class="hr-vert-small"></p>
+            <div className="hr-container">
+                <p className="hr-vert-small"></p>
             </div>	
-            <form action="loginCreate.php" method = "post">
-                <div class="form-group">
+            
+                <div className="form-group">
+                {error && <p>Login fehlgeschlagen</p>}
                     <label for="name">Benutzername: </label> 
-                    <div class="tooltip"><button >?</button>
+                    <div className="tooltip"><button >?</button>
                          {/* style="height:25px; width: 25px;" */}
-                        <span class="tooltiptext">Benutzen Sie die vorläufigen <br/> Anmeldedaten!</span>
+                        <span className="tooltiptext">Benutzen Sie die vorläufigen <br/> Anmeldedaten!</span>
                      </div>
-                    <span class="input-span"><input type="text" name="login-name"></input></span>
+                    <span className="input-span"><input type="text" name="login-name" onChange={(e) => setBenutzer(e.target.value)}></input></span>
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                     <label for = "password">Passwort: </label> 
-                    <span class="input-span"><input type="password" name="login-password"></input></span>
+                    <span className="input-span"><input type="password" name="login-password" onChange={(e) => setPasswort(e.target.value)}></input></span>
                 </div>
-                <div class="form-group">
-                    <button type="submit" name="login">LOGIN</button>
+                <div className="form-group">
+                    <button name="login" onClick={login}>LOGIN</button>
                 </div>
-            </form>	
+	
         </div>
 	</div>
   )
