@@ -2,35 +2,36 @@
 
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 
 
 import Link from "next/link"
 import styles from '../../styles/Button.module.css'
 import { useState } from "react"
+import React from "react";
 
 
 import Popup from '../../komponenten/FirstLoginPopUp'
+import { get } from "mongoose";
 
 
 export default function mainMenu() {
 
-    const {data:session} = useSession();
-    console.log({data:session}) 
+       const {data:session} = useSession();
+    // const {data:session} = getSession();
+    console.log({data:session}) //Session anscheinend leer, kann aber Daten aufrufen 
+    const Studie = session?.user?.Studie
 
 
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
-    const [formData, setFormData] = useState(null);
+
   
-    const handleSave = (data) => {
-      // Hier können Sie die Daten verarbeiten, z.B. an die API senden
-      setFormData(data);
-    }
+    const [isPopupVisible, setIsPopupVisible] = useState(false);
     
 
-    if (session) {
-        // Session is still loading or user is not logged in
-        return <div>Session ist da</div>;
-      }
+    // if (session) {
+    //     // Session is still loading or user is not logged in
+    //     return <div>Session ist da</div>;
+    //   }
     
     //   // Check if user data exists in the session
     //   if (!session.user) {
@@ -51,73 +52,62 @@ export default function mainMenu() {
     // const test1 = () => {
     //     sessionStorage.setItem("Test", "1");
     // }
-    
+
     
   return (
 
      <div className='text-container'>
         <h2>Willkommen zum Erstellen <br/> einer neuen Studie</h2>
-        <p className="text">{session?.user?.username}Hier sollte eigentlich nen Name stehen </p>
-        
+        <p className="text">Sie sind eingeloggt mit dem Benutzer: {session?.user?.username} </p>
+
         <div className='hr-container'>
             <p className='hr-vert'></p>
         </div>
         <div className="menu-container">
-            <span className="welcome">
-                <p> Willkommen</p>
-            </span>
-            <Link href="">
-            <button className ={styles.wide}>
-                 <p>Stratifizierungskriterien festlegen</p>
+          <Link href="">
+            <button className={styles.wide}>
+                <p>Basics</p>
             </button>
-            </Link>
-            <div className="hr-container">
-                <p className="hr-vert-small"></p>
-              </div>	
-            <Link href="">
-            <button className ={styles.wide}>
-                    <p>Randomisierungsmethoden festlegen</p>
-            </button>
-            </Link>
-            <div className="hr-container">
-                <p className="hr-vert-small"></p>
-              </div>	
-            <Link href="/create/newStaffMember">
-            <button className ={styles.wide}>
-                    <p>neue Studienaccounts anlegen</p>
-            </button>
-            </Link>
+          </Link> 
             <div className="hr-container">
                 <p className="hr-vert-small"></p>
               </div>	
             <button onClick={() => signOut()}>Logout</button>  
 
-            {/* <button onClick={test1}> hier </button> */}
-
-
-            <div>
-      <button onClick={() => setIsPopupOpen(true)}>Popup öffnen</button>
-      <Popup
-        isOpen={isPopupOpen}
-        onClose={() => setIsPopupOpen(false)}
-        onSave={handleSave}
-      />
-      {formData && (
-        <div>
-          <p>Studiennamen: {formData.studienName}</p>
-          <p>Zentrum-ID: {formData.zentrumID}</p>
+    <div className="spacer"/>
         </div>
-      )}
-    </div>
-
-
-
-        </div>
+        
     </div>
 
    
   )
 }
+
+
+//  <div className="hr-container">
+// <p className="hr-vert-small"></p>
+// </div> 
+// <Link href=''>
+// <button className={styles.wide}>
+// <p>Stratifizierungskriterien festlegen</p>
+// </button>
+// </Link>
+// <div className="hr-container">
+// <p className="hr-vert-small"></p>
+// </div>	
+// <Link href="">
+// <button className ={styles.wide}>
+//     <p>Randomisierungsmethoden festlegen</p>
+// </button>
+// </Link>
+// <div className="hr-container">
+// <p className="hr-vert-small"></p>
+// </div>	
+// <Link href="/create/newStaffMember">
+// <button className ={styles.wide}>
+//     <p>neue Studienaccounts anlegen</p>
+// </button>
+// </Link> 
 
 
 

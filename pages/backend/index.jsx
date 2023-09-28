@@ -116,6 +116,7 @@ export default function RegisterForm() {
                     placeholder="hier nur MASTER eintragen!"
                     pattern="MASTER"
                 />
+                <p>Könnte man auch Hardcoden da Masteraccount erstellt werden soll</p>
                 </div>
                 <div className="row">
                 {error && (

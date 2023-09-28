@@ -7,3 +7,14 @@
    width: 250px; 
    height:100px
 }
+
+.disabled{
+    width: 250px; 
+    height:100px;
+}
+.disabled:hover{
+    background: red;
+	border: 2px solid red;
+	color: #ffffff;
+	transition: all 0.5s ease-out;
+}

@@ -6,14 +6,28 @@ import bcrypt from "bcryptjs";
 import mongodb from "@/utils/mongodb";
 import UserModel from "@/models/user";
 
+// const UserInfo = async (username) =>{
+//     await mongodb.dbConnect()
+//     const user = await UserModel.findOne({ username });
+//     console.log("userInfo"+user)
+//     return user
+// }
+
 export default NextAuth({
   providers: [
     CredentialsProvider({
-      name: "credentials",
-      credentials: {},
+    //   name: "credentials",
+    //   credentials: {},
       async authorize(credentials) {
-        // const user ={id:"1"}
-        // return user;
+        // var user2 = {
+        //     id: "1",
+        //     name: "Max Mustermann",
+        //     email: "max@example.com",
+        //     role: "admin",
+        //     customField: "Custom data here",
+        //   };
+        //  console.log(user2)
+        //  return Promise.resolve(user2);
         const { username, passwort } = credentials;
         console.log(username)
         console.log(passwort)
@@ -21,7 +35,6 @@ export default NextAuth({
         try {
           await mongodb.dbConnect();
           const user = await UserModel.findOne({ username });
-          console.log(user)
 
           if (!user) {
             return null;
@@ -36,15 +49,18 @@ export default NextAuth({
             return null;
           }
 
-          const userData= {
-            id: user._id,
+        console.log(user)
+        
+        const returnedUser={
             username: user.username,
-            role: user.role
-          }
+            role: user.role,
+            Zentrum: user.Zentrum_ID,
+            Studie: user.Studien_ID,
+            mail: user.mail
+        }
 
-          console.log(userData)
+        return Promise.resolve(returnedUser)
 
-          return user;
         } catch (error) {
           console.log("Error: ", error);
         }
@@ -53,16 +69,28 @@ export default NextAuth({
   ],
   session: {
     storage:"sessionStorage",
-    strategy: "jwt",
+    strategy: "jwt", 
+    jwt: "true"
   },
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
-    signIn: "/create"
+    signIn: "/create", 
   },
   cookie: {
     secure: false,
   },
   storage: "sessionStorage",
+
+  callbacks: {
+    jwt: async ({ token, user }) => {
+        user && (token.user = user)
+        return token
+    },
+    session: async ({ session, token }) => {
+        session.user = token.user
+        return session
+    }
+}
 
 });
 

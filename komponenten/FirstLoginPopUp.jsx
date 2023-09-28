@@ -8,7 +8,7 @@ Modal.setAppElement('#__next');
 export default function FirstLoginPopUp({isOpen, onClose, onSave}) {
 
     const [studienName, setStudienName] = useState('');
-    const [zentrumID, setZentrumID] = useState('');
+    // const [zentrumID, setZentrumID] = useState('');
   
     const handleSave = () => {
       onSave({ studienName, zentrumID });
@@ -17,6 +17,7 @@ export default function FirstLoginPopUp({isOpen, onClose, onSave}) {
 
   return (
     <Modal isOpen={isOpen} onRequestClose={onClose}>
+        
       <h2>Studiennamen und Zentrum-ID eingeben</h2>
       <input
         type="text"
@@ -24,13 +25,14 @@ export default function FirstLoginPopUp({isOpen, onClose, onSave}) {
         value={studienName}
         onChange={(e) => setStudienName(e.target.value)}
       />
-      <input
+      {/* <input
         type="text"
         placeholder="Zentrum-ID"
         value={zentrumID}
         onChange={(e) => setZentrumID(e.target.value)}
-      />
+      /> */}
       <button onClick={handleSave}>Speichern</button>
+      <button onClick={onClose}>X</button>
     </Modal>
   );
 }

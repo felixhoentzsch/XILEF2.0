@@ -41,7 +41,7 @@ export default function index() {
           });
     
           if (res.error) {
-            setError("Invalid Credentials");
+            setError("ungültige Benutzerdaten");
             return;
           }
     
@@ -72,7 +72,7 @@ export default function index() {
                 {error && <p className="error-message">{error}</p>}
                     <label for="name">Benutzername: </label> 
                     <div className="tooltip"><button className={styles.tip} >?</button>
-                        <span className="tooltiptext">Benutzen Sie die vorläufigen <br/> Anmeldedaten!</span>
+                        <span className="tooltiptext">Benutzen Sie bitte die Anmeldedaten <br/> aus der email!</span>
                      </div>
                     <span className="input-span"><input type="text" name="login-name" onChange={(e) => setBenutzer(e.target.value)}></input></span>
                 </div>
