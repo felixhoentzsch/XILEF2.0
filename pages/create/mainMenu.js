@@ -64,9 +64,9 @@ export default function mainMenu() {
             <p className='hr-vert'></p>
         </div>
         <div className="menu-container">
-          <Link href="">
+          <Link href="/create/basics.js">
             <button className={styles.wide}>
-                <p>Basics</p>
+                <p>"Basics"</p>
             </button>
           </Link> 
             <div className="hr-container">
