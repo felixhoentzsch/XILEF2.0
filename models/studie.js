@@ -6,20 +6,20 @@ const studieSchema = new mongoose.Schema({
         required: true,
         maxlength: 50
     },
+    Methode_Randomisierung: {
+        type: String,
+        default:0
+    },
     Anzahl_Gruppen: {
-        type: Number,
+        type: String,
         default: 0 
     },
     Anzahl_Stratifizierung: {
         type: Number,
         default: 0       
     },
-    Methode_Randomisierung: {
-        type: Number,
-        default:0
-    }
 },
-//{timestamps: true}
+{timestamps: true}
 )
 
 const StudyModel =  mongoose.models.studie || mongoose.model("studie", studieSchema)
