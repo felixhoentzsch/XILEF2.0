@@ -1,31 +1,45 @@
 import { useState } from "react"
+import axios from "axios";
+import { results } from '../../randomize_methods/two_blocks';
+import { list4 } from '../../randomize_methods//block/four_blocks';
 
 
 export default function basics() {
 
 const [studyName, setStudyname] = useState('');
 const [randomize, setRandomize] = useState('option0');
-const [group, setGroup] = useState('Option1');
+const [group, setGroup] = useState('');
+const [blockSize, setBlockSize] = useState('');
 const [inputFields, setInputFields] = useState(['']);
+const [showRandomizationRatio, setShowRandomizationRatio] = useState(false);
 
 const [error, setError] = useState('')
 const [sucsess, setSucsess] = useState('')
 
+let list = [];
+
 const handleRandomizeChange = (event) => {
 setRandomize(event.target.value);
+setBlockSize('')
 };
 
   const handleOptionChange = (event) => {
     setGroup(event.target.value);
+    setShowRandomizationRatio(true)
 
     // Je nach ausgewählter Option, füge die entsprechende Anzahl von Eingabefeldern hinzu
+    let prefix = '';
     if (event.target.value === 'Option1') {
-      setInputFields([':']);
+      prefix = '_:_';
     } else if (event.target.value === 'Option2') {
-      setInputFields(['_:_:_']);
+      prefix = '_:_:_';
     } else if (event.target.value === 'Option3') {
-      setInputFields(['_:_:_:_']);
+      prefix = '_:_:_:_';
     }
+
+    // Aktualisiere die Input-Felder mit dem neuen vorangestellten Wert
+    const updatedInputFields = inputFields.map((value) => prefix + value);
+    setInputFields(updatedInputFields);
   };
 
   const handleInputChange = (index, event) => {
@@ -33,6 +47,12 @@ setRandomize(event.target.value);
     newInputFields[index] = event.target.value;
     setInputFields(newInputFields);
   };
+
+  if(randomize === 'block' && blockSize === '4'){
+    list = {list4}
+  } else {
+    list = [0,0,0,0,0,0,0]
+  }
 
 
   const createStudy = async ()=>{
@@ -44,10 +64,11 @@ setRandomize(event.target.value);
             studyName,
             randomize,
             group,
-            inputFields
+            inputFields,
+            list
         };
 
-        try{
+         try{
 
             const response = await axios.post("http://localhost:3000/api/studies", newStudy, {
           headers: {
@@ -59,15 +80,15 @@ setRandomize(event.target.value);
           setStudyname('');
           setRandomize('option0');
           setGroup('Option1');
-          setInputFields('');
-          setSucsess('Nutzer erfolgreich angelegt')
+          setInputFields(['']);
+          setSucsess('Studie erfolgreich angelegt')
         }else {
           // Fehler beim Speichern des Mitarbeiters
-          setError('Fehler beim Speichern des Mitarbeiters');
+          setError('Fehler beim Speichern der Studie');
         }
 
         } catch(error){
-            setError("Fehler")
+            setError("Fehler beim Anlegen der Studie")
         }
 
     } else {
@@ -77,7 +98,7 @@ setRandomize(event.target.value);
   } 
 
 
-
+ 
   return (
     <div className="text-container">
         {error && <div className="error-message">{error}</div>}
@@ -113,6 +134,24 @@ setRandomize(event.target.value);
                 <option value="block">Blockrandomiserung</option>
             </select>
         </div>
+        {randomize === 'block' && ( // Zeigt das zweite Feld nur an, wenn "Blockrandomisierung" ausgewählt ist
+        <div>
+            <div className="hr-container">
+            <p className="hr-vert-small"/>
+             </div>
+
+          <label className="p2">Blocklänge:</label>
+          <select
+            className="select p2"
+            value={blockSize}
+            onChange={(event) => setBlockSize(event.target.value)}
+          >
+            <option value="4">4</option>
+            <option value="8">8</option>
+            <option value="12">12</option>
+          </select>
+        </div>
+      )}
 
         <div className="hr-container">
             <p className="hr-vert-small"/>
@@ -127,7 +166,7 @@ setRandomize(event.target.value);
           checked={group === 'Option1'}
           onChange={handleOptionChange}
         />
-        <label>Option 1</label>
+        <label>2</label>
       </div>
       <div>
         <input
@@ -136,7 +175,7 @@ setRandomize(event.target.value);
           checked={group === 'Option2'}
           onChange={handleOptionChange}
         />
-        <label>Option 2</label>
+        <label>3</label>
       </div>
       <div>
         <input
@@ -145,22 +184,25 @@ setRandomize(event.target.value);
           checked={group === 'Option3'}
           onChange={handleOptionChange}
         />
-        <label>Option 3</label>
+        <label>4</label>
       </div>
 
-      {inputFields.map((value, index) => (
+      {showRandomizationRatio && ( // Zeige das Randomisierungsverhältnis-Feld nur an, wenn showRandomizationRatio true ist
         <div>
-        <label>Randomiserungsverhältnis</label>    
-        <input
-          key={index}
-          type="text"
-          value={value}
-          onChange={(event) => handleInputChange(index, event)}
-          placeholder={`Randomiserungsverhältnis`}
-          maxLength={7}
-        />
+          {inputFields.map((value, index) => (
+            <div key={index}>
+              <label>Randomiserungsverhältnis</label>
+              <input
+                type="text"
+                value={value}
+                onChange={(event) => handleInputChange(index, event)}
+                placeholder={`Randomiserungsverhältnis`}
+                maxLength={7}
+              />
+            </div>
+          ))}
         </div>
-      ))}
+      )}
 
         <div class="hr-container">
             <p class="hr-vert-small"/>

@@ -10,13 +10,25 @@ const studieSchema = new mongoose.Schema({
         type: String,
         default:0
     },
+    blocksize:{
+        type: Number,
+        default: 0,
+    },
     Anzahl_Gruppen: {
         type: String,
         default: 0 
     },
+    Verteilung:{
+        type: Array,
+        default:0
+    },
     Anzahl_Stratifizierung: {
         type: Number,
         default: 0       
+    },
+    Rando_Liste:{
+        type: Array,
+        default: 0
     },
 },
 {timestamps: true}
