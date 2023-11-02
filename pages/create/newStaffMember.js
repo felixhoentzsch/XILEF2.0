@@ -1,5 +1,7 @@
 "useClient";
 
+"use Client"
+
 import { useState } from "react";
 import styles from '../../styles/Button.module.css'
 import mongodb from "@/utils/mongodb";

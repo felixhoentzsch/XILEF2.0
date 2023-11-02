@@ -1,8 +1,9 @@
+"use Client"
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
 
-const inter = Inter({ subsets: ['latin'] })
+// const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
@@ -23,7 +24,7 @@ export default function Home() {
             <div className="hr-container">
               <p className="hr-vert-small"></p>
             </div>	
-              <Link href ="">
+              <Link href ="/study">
                 <button className ="button-long" type="submit"><p>Bei bestehener Studie einloggen(unfertig)</p></button>
               </Link> 
               <div className="hr-container">

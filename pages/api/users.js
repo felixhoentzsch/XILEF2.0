@@ -1,3 +1,5 @@
+"use client"
+
 // In deinem Node.js-Server-Code (z.B., server.js oder app.js)
 const express = require('express');
 const app = express();

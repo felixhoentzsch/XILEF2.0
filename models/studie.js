@@ -10,6 +10,10 @@ const studieSchema = new mongoose.Schema({
         type: String,
         default:0
     },
+    Fallzahl:{
+        type:Number,
+        default:0
+    },
     blocksize:{
         type: Number,
         default: 0,
@@ -19,6 +23,10 @@ const studieSchema = new mongoose.Schema({
         default: 0 
     },
     Verteilung:{
+        type: Array,
+        default:0
+    },
+    Name_Behandlung:{
         type: Array,
         default:0
     },
