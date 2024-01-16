@@ -265,7 +265,7 @@ const handleBlockSizeChange = (event) => {
         mail,
       };
       try {
-        const response = await axios.post("http://localhost:3000/api/studies", newStudy, {
+        const response = await axios.post("https://main.d3qs3j5nnfqi5m.amplifyapp.com/api/studies", newStudy, {
           headers: {
             'Content-Type': 'application/json',
           },
