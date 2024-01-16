@@ -17,7 +17,7 @@ export default function Login() {
                 passwort
             })
             // alert("ERfolgreich")
-            router.push("/backend")
+            router.push("/backend/login")
         } catch (error) {
             setError("Login fehlgeschlagen. Bitte überprüfen Sie ihre Anmeldedaten")
         }
