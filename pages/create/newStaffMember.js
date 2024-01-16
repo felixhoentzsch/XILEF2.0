@@ -32,7 +32,7 @@ export default function NewStaffMember() {
         };
 
         try {
-            const response = await axios.post("http://localhost:3000/api/fetchUserData", key, {
+            const response = await axios.post("https://main.d3qs3j5nnfqi5m.amplifyapp.com/api/fetchUserData", key, {
                 headers: {
                 'Content-Type': 'application/json',
                 },

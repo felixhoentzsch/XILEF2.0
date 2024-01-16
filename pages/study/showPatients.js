@@ -28,7 +28,7 @@ export default function ShowPatients() {
       Studien_ID
     };  
     try {
-      const response = await axios.post("http://localhost:3000/api/fetchPatientsData", key, {
+      const response = await axios.post("https://main.d3qs3j5nnfqi5m.amplifyapp.com/api/fetchPatientsData", key, {
         headers: {
           'Content-Type': 'application/json',
         },

@@ -32,7 +32,7 @@ export default function Randomize() {
       };
 
       try {
-        const response = await axios.post("http://localhost:3000/api/patients", newPatient, {
+        const response = await axios.post("https://main.d3qs3j5nnfqi5m.amplifyapp.com/api/patients", newPatient, {
           headers: {
             'Content-Type': 'application/json',
           },

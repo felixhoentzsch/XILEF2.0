@@ -37,7 +37,7 @@ export default function BreakingTheBlind() {
         Studie
       };
       try {
-        const response = await axios.post("http://localhost:3000/api/fetchList", key, {
+        const response = await axios.post("https://main.d3qs3j5nnfqi5m.amplifyapp.com/api/fetchList", key, {
           headers: {
             'Content-Type': 'application/json',
           },
