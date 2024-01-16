@@ -46,7 +46,7 @@ export default function MainMenu() {
 
         <Link href="/study/randomize">
           <button className={styles.wide}>
-            <p>"Randomisierung"</p>
+            <p>Randomisierung</p>
           </button>
         </Link> 
         {session?.user?.role === "MASTER" && (
