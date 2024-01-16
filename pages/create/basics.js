@@ -50,7 +50,7 @@ useEffect(() => {
     setRandomizationParameter(tolerance + 'tl');
     console.log(RandomizationParameter);
   }
-}, [randomize, blockSize, biasedCoin, tolerance]); // Dependency array to control when the effect runs
+}, [randomize, blockSize, biasedCoin, tolerance, RandomizationParameter]); // Dependency array to control when the effect runs
 
 
   const handleRandomizeChange = (event) => {
