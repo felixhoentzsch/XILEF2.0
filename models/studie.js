@@ -14,8 +14,8 @@ const studieSchema = new mongoose.Schema({
         type:Number,
         default:0
     },
-    blocksize:{
-        type: Number,
+    Randomization_Parameter:{
+        type: String,
         default: 0,
     },
     Anzahl_Gruppen: {
@@ -36,6 +36,14 @@ const studieSchema = new mongoose.Schema({
     },
     Rando_Liste:{
         type: Array,
+        default: 0
+    },
+    Rando_Liste_use:{
+        type: Array,
+        default: 0
+    },
+    breakingTheBlind:{
+        type: Number,
         default: 0
     },
 },

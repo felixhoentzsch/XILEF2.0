@@ -17,11 +17,11 @@ const userSchema = new mongoose.Schema({
         maxlength: 50
     },
     Zentrum_ID: {
-        type: Number,
+        type: String,
         required: true,
     },
     Studien_ID: {        
-        type: Number,
+        type: String,
         required: true,
     },
     mail:{

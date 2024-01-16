@@ -734,7 +734,7 @@ padding-top:0px;
   
   .tooltip .tooltiptext {
 	visibility: hidden;
-	width: 120px;
+	width: 200px;
 	background-color: #555;
 	color: #fff;
 	text-align: center;
@@ -787,6 +787,15 @@ padding-top:0px;
 	font-weight: bold; /* Fettschrift */
 	text-align: center; /* Zentrierte Ausrichtung */
   }
+  .warning-message {
+	background-color: #f2aa35; /* Rote Hintergrundfarbe */
+	color: white; /* Weiße Textfarbe */
+	padding: 10px; /* Innenabstand für den Text */
+	border-radius: 5px; /* Abgerundete Ecken */
+	margin-top: 10px; /* Abstand nach oben */
+	font-weight: bold; /* Fettschrift */
+	text-align: center; /* Zentrierte Ausrichtung */
+  }
 
 
 
@@ -816,7 +825,7 @@ padding-top:0px;
   }
   
   .input {
-	width: 100%;
+	width: 20%;
 	padding: 5px;
 	margin-top: 3px;
   }
@@ -837,3 +846,8 @@ padding-top:0px;
 	margin: 0 5px;
   }
   
+
+  .buttonContent {
+	display: flex; /* Verwende Flexbox, um die Elemente horizontal anzuordnen */
+	align-items: center; /* Zentriere die Elemente vertikal innerhalb der Flexbox */
+  }

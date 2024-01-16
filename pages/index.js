@@ -1,4 +1,4 @@
-"use Client"
+"use client"
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
@@ -25,7 +25,7 @@ export default function Home() {
               <p className="hr-vert-small"></p>
             </div>	
               <Link href ="/study">
-                <button className ="button-long" type="submit"><p>Bei bestehener Studie einloggen(unfertig)</p></button>
+                <button className ="button-long" type="submit"><p>Bei bestehener Studie einloggen</p></button>
               </Link> 
               <div className="hr-container">
                 <p className="hr-vert-small"></p>

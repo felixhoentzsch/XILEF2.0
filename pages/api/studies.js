@@ -1,32 +1,40 @@
-// In deinem Node.js-Server-Code (z.B., server.js oder app.js)
-const express = require('express');
-const app = express();
+
+import express from 'express';
 import StudyModel from "@/models/studie";
+import UserModel from "@/models/user";
 import mongodb from "@/utils/mongodb";
 
+const app = express();
 
 export default async function handler(req, res) {
-// API-Route zum Speichern eines neuen Mitarbeiters
+  if (req.method === 'POST') {
+    try {
+      await mongodb.dbConnect();
 
-if (req.method === 'POST') {
-  try {
+      const { studyName, randomize, RandomizationParameter, group, inputFields, list, nameFields, caseNumber, user, mail } = req.body;
 
-    await mongodb.dbConnect();
-    const { studyName, randomize, blockSize, group, inputFields, list, nameFields, caseNumber} = req.body; // Daten aus der Anfrage extrahieren
+      const newStudy = new StudyModel({ Studienname: studyName, Methode_Randomisierung: randomize, Fallzahl: caseNumber,  Randomization_Parameter: RandomizationParameter, Anzahl_Gruppen: group, Verteilung: inputFields, Name_Behandlung: nameFields, Rando_Liste: list, Rando_Liste_use: list });
 
-    const newStudy = new StudyModel({ Studienname: studyName, Methode_Randomisierung: randomize, Fallzahl: caseNumber, blocksize: blockSize, Anzahl_Gruppen: group, Verteilung: inputFields, Name_Behandlung: nameFields, Rando_Liste: list });
-    await newStudy.save();
+      await newStudy.save();
 
-    res.status(201).json(newStudy); // Erfolgreiche Antwort mit den gespeicherten Daten zurückgeben
-   // }
+      console.log('user:', user);
+      console.log('mail:', mail);
 
- 
+      const conditions = { username: user, mail: mail };
+      const update = { $set: { Studien_ID: studyName } };
 
+      const updatedUser = await UserModel.findOneAndUpdate(conditions, update, { new: true });
+      console.log('updatedUser:', updatedUser);
 
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Fehler beim Speichern der Studie' });
+      if (updatedUser) {
+        console.log('Benutzer wurde erfolgreich aktualisiert:', updatedUser);
+      } else {
+        console.log('Benutzer nicht gefunden.');
+      }
+      res.status(201).json(newStudy);
+    } catch (error) {
+      console.error('Fehler:', error);
+      res.status(500).json({ message: 'Interner Serverfehler' });
+    }
   }
-};
-
 }

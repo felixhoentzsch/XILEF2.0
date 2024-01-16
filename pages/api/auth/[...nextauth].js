@@ -50,17 +50,17 @@ export default NextAuth({
             return null;
           }
 
-        console.log(user)
+          console.log(user)
         
-        const returnedUser={
+          const returnedUser={
             username: user.username,
             role: user.role,
             Zentrum: user.Zentrum_ID,
             Studie: user.Studien_ID,
             mail: user.mail
-        }
+          }
 
-        return Promise.resolve(returnedUser)
+          return Promise.resolve(returnedUser)
 
         } catch (error) {
           console.log("Error: ", error);
@@ -75,7 +75,8 @@ export default NextAuth({
   },
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
-    signIn: "/create", 
+    signIn: "/create",
+    signIn: "/study", 
   },
   cookie: {
     secure: false,
@@ -84,13 +85,12 @@ export default NextAuth({
 
   callbacks: {
     jwt: async ({ token, user }) => {
-        user && (token.user = user)
-        return token
+      user && (token.user = user)
+      return token
     },
     session: async ({ session, token }) => {
-        session.user = token.user
-        return session
+      session.user = token.user
+      return session
     }
-}
-
+  }
 });
