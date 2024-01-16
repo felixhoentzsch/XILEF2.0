@@ -12,7 +12,7 @@ export default function Login() {
         setError("")
         e.preventDefault();
         try {
-            await axios.post("https://main.d2u4rngyqp6k27.amplifyapp.com//api/loginAdmin", {
+            await axios.post("https://main.d3qs3j5nnfqi5m.amplifyapp.com/api/loginAdmin", {
                 benutzer,
                 passwort
             })
