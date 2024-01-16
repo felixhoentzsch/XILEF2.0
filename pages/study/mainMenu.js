@@ -31,7 +31,7 @@ export default function MainMenu() {
     if (!session?.user?.username) {
       router.push("/");
     }
-  }, []);
+  },);
  
   return (
 
