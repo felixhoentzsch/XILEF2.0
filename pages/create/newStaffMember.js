@@ -83,7 +83,7 @@ export default function NewStaffMember() {
                     setError("Ein User mit dem eingegebenen Namen existiert schon!")
                     return;
                 }
-                const response = await axios.post("http://localhost:3000/api/users", newStaffMember, {
+                const response = await axios.post("https://main.d3qs3j5nnfqi5m.amplifyapp.com/api/users", newStaffMember, {
                     headers: {
                     'Content-Type': 'application/json',
                     },
