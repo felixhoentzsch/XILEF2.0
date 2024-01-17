@@ -71,7 +71,7 @@ export default function NewStaffMember() {
             };
   
             try {
-                const resUserExists = await fetch('/../api/userExists', {
+                const resUserExists = await fetch('https://main.d3qs3j5nnfqi5m.amplifyapp.com/api/userExists', {
                     method:"POST",
                     headers:{
                         "Content-Type": "application/json",
