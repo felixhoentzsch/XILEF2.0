@@ -41,6 +41,7 @@ export default function Randomize() {
         if (response.status === 201) {
           setPatientName('')         
           setSucsess('Patient erfolgreich randomisiert');
+          // --> hier dann den Mailversand einfügen!!
         } else {
           setError('Fehler beim Speichern des Patienten');
         }

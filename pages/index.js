@@ -31,7 +31,7 @@ export default function Home() {
                 <p className="hr-vert-small"></p>
               </div>	
               <Link href ="/create">  
-                <button className ="button-long" type="submit"><p>eine neue Studie anlegen</p></button>   
+                <button className ="button-long" type="submit"><p>eine Studie anlegen/bearbeiten</p></button>   
             </Link> 
           </div>  
           </div>

@@ -12,9 +12,13 @@ import BiasedCoin from "../../randomize_methods/BiasedCoin"
 import MTI from "../../randomize_methods/MTI"
 import { SP } from "next/dist/shared/lib/utils";
 
+import { useRouter } from "next/navigation"
+
 
 export default function Basics() {
   const {data:session} = useSession();
+  const router = useRouter();
+
 
   const [studyName, setStudyname] = useState('');
   const [randomize, setRandomize] = useState('');
@@ -185,7 +189,7 @@ const handleBlockSizeChange = (event) => {
         blockSize,
         inputFields
       });
-      console.log('Erstellte Liste:', list)
+      console.log('Erstellte Liste:', list) 
     }
     else if(randomize === 'coin'){
       const list = BiasedCoin({
@@ -272,12 +276,22 @@ const handleBlockSizeChange = (event) => {
         });
 
         if (response.status === 201) {
-          setStudyname('');
-          setRandomize('');
-          setGroup('');
-          setInputFields(['']);
-          setCaseNumber('')
-          setSuccess('Studie erfolgreich angelegt');
+          // setStudyname('');
+          // setRandomize('');
+          // setGroup('');
+          // setInputFields(['']);
+          // setCaseNumber('')
+          // setSuccess('Studie erfolgreich angelegt');
+          router.push({
+            pathname: 'studyOverview',
+            query:{studyName: studyName,
+                   randomize: randomize,
+                   RandomizationParameter: RandomizationParameter,
+                   inputFields: inputFields,
+                   nameFields: nameFields,
+                   blocks: chooseBlock
+                  },
+          });
         } else {
           setError('Fehler beim Speichern der Studie');
         }
@@ -573,7 +587,7 @@ const handleBlockSizeChange = (event) => {
             value={blockSize}
             onChange={handleBlockSizeChange}
             required
-            placeholder={"Die maximale Blocklänge ist ein vielfaches von: "+sumOfInputFields}
+            placeholder={"Die Blocklänge ist ein vielfaches von: "+sumOfInputFields}
           />
           </span>
         </div>
@@ -592,7 +606,7 @@ const handleBlockSizeChange = (event) => {
             value={blockSize}
             onChange={handleBlockSizeChange}
             required
-            placeholder={"Die Blocklänge sind ein vielfaches von: "+sumOfInputFields}
+            placeholder={"Die maximale Blocklänge sind ein vielfaches von: "+sumOfInputFields}
             //pattern="\d+(,\d+)*"
           />
           </span>

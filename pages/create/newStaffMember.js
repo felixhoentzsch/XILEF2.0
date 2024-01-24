@@ -4,6 +4,7 @@ import { useState } from "react";
 import styles from '../../styles/Button.module.css'
 import axios from "axios";
 import Image from "next/image";
+import Spacer from "@/komponenten/Spacer";
 
 import { useSession } from "next-auth/react";
 
@@ -233,6 +234,7 @@ export default function NewStaffMember() {
                     ))}
                 </tbody>
             </table>
+            <Spacer/>
         </div>
     );
 }
