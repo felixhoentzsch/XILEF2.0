@@ -24,14 +24,16 @@ export default function StudyOverview() {
     } else if (randomize === "block") {
       method = "Blockrandomisierung";
       value = parseInt(RandomizationParameter, 10);
-      const originalString = inputFields.toString();
-      RandVerh = originalString.slice(0, inputFields.length - 1) + ':' + originalString.slice(-1);
+      if (inputFields!== undefined){
+        const originalString = inputFields.toString();
+        RandVerh = originalString.slice(0, inputFields.length - 1) + ':' + originalString.slice(-1);
+      }
     } else if (randomize === "inbalance") {
       method = "Maximally-Tolerated-Imbalance";
       value = parseInt(RandomizationParameter, 10);
     }
   
-    if (nameFields !== "") {
+    if (nameFields !== undefined) {
       const originalObject = nameFields.toString();
       groupName = originalObject.slice(0, nameFields.length - 1) + ':' + originalObject.slice(-1);
     }
