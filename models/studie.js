@@ -18,6 +18,10 @@ const studieSchema = new mongoose.Schema({
         type: String,
         default: 0,
     },
+    blockSize:{
+        type: String,
+        default:0
+    },
     Anzahl_Gruppen: {
         type: String,
         default: 0 

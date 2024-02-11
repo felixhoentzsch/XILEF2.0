@@ -5,7 +5,7 @@ import mongodb from "@/utils/mongodb";
 
 export default async function handler(req, res) {
   try {
-    const { username, passwort, role, Zentrum_ID, Studien_ID, mail } = await req.body;
+    const { username, passwort, role, mail } = await req.body;
     const hashedPassword = await bcrypt.hash(passwort, 10);
     await mongodb.dbConnect()
     await UserModel.create({ username, passwort: hashedPassword, role, Zentrum_ID, Studien_ID, mail });

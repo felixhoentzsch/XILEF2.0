@@ -44,8 +44,11 @@ export default function Basics() {
 //   let list = [];
 
 useEffect(() => {
-  if (randomize === 'block' && blockSize !== '') {
-    setRandomizationParameter(blockSize + 'bl');
+  if (randomize === 'block' && blockSize !== '' && chooseBlock ==="fixed") {
+    setRandomizationParameter('f'+ blockSize + 'bl');
+    console.log(RandomizationParameter);
+  } else if (randomize === 'block' && blockSize !== '' && chooseBlock ==="variable"){
+    setRandomizationParameter('v'+ blockSize + 'bl');
     console.log(RandomizationParameter);
   } else if (biasedCoin !== '') {
     setRandomizationParameter(biasedCoin + 'bc');
@@ -167,6 +170,7 @@ const handleBlockSizeChange = (event) => {
         setError('Eine der eingegebenen Blocklängen ist kein vielfaches von ' + sumOfInputFields)
       }
       else {
+        console.log(newBlockSize)
         setError('')
       }
 
@@ -260,6 +264,7 @@ const handleBlockSizeChange = (event) => {
         studyName,
         randomize,
         RandomizationParameter,
+        blockSize,
         group,
         inputFields,
         nameFields,
@@ -284,13 +289,9 @@ const handleBlockSizeChange = (event) => {
           // setSuccess('Studie erfolgreich angelegt');
           router.push({
             pathname: 'studyOverview',
-            query:{studyName: studyName,
-                   randomize: randomize,
-                   RandomizationParameter: RandomizationParameter,
-                   inputFields: inputFields,
-                   nameFields: nameFields,
-                   blocks: chooseBlock
-                  },
+            query:{
+              Studienname: studyName,
+            },
           });
         } else {
           setError('Fehler beim Speichern der Studie');

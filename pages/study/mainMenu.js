@@ -25,7 +25,7 @@ export default function MainMenu() {
   const {data:session} = useSession();
   // const {data:session} = getSession();
   console.log({data:session}) //Session anscheinend leer, kann aber Daten aufrufen 
-  const Studie = session?.user?.Studie
+  //const Studie = session?.user?.Studie
 
   useEffect(() => {
     if (!session?.user?.username) {

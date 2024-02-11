@@ -5,13 +5,13 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import React from "react";
+import Spacer from "@/komponenten/Spacer";
 
 
 export default function RegisterForm() {
   const [username, setUsername] = useState("");
   const [mail, setmail] = useState("");
   const [passwort, setPasswort] = useState("");
-  const [role, setRole] = useState("");
   //const [Zentrum_ID, setZentrum] = useState("");
   //const [Studien_ID, setStudie] = useState("");
 
@@ -19,15 +19,14 @@ export default function RegisterForm() {
   const [sucsess, setSucsess] = useState('')
   const router = useRouter();
 
-
-  const Zentrum_ID = "zzz"
-  const Studien_ID = "zzz"
+  const role = "MASTER"; // Master als Hardcode, da nur dies zulässig
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("")
 
-    if (!username || !mail || !passwort || !role || !Zentrum_ID || ! Studien_ID) {
-      setError("All fields are necessary.");
+    if (!username || !mail || !passwort || !role) {
+      setError("Es sind alle Felder auszufüllen.");
       return;
     }
 
@@ -43,7 +42,7 @@ export default function RegisterForm() {
       const { user } = await resUserExists.json();
 
       if (user) {
-        setError("User already exists.");
+        setError("Der angelegte Benutzer existiert bereits.");
         return;
       }
 
@@ -56,15 +55,14 @@ export default function RegisterForm() {
           username,
           passwort,
           role,
-          Zentrum_ID,
-          Studien_ID,
           mail
         }),
       });
 
       if (res.ok) {
-        const form = e.target;
-        form.reset();
+        setUsername("")
+        setPasswort("")
+        setmail("")
         setSucsess("Ein neuer Maseraccount wurde erfolgreich angelegt.")
       } else {
         console.log("User registration failed.");
@@ -81,84 +79,56 @@ export default function RegisterForm() {
     
     <div className="text-container">
       {sucsess && <div className="sucsess-message">{sucsess}</div>}
+      {error && <div className="error-message">{error}</div>}
       
       <h2 className="schrifth2">neuer Masteraccout</h2>
 
       <div class="hr-container">
         <p class="hr-vert"/>
       </div>
+      <label className="p2">Nutzername</label>
+      <span className="input-small-span">
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+          pattern="[a-zA-Z0-9_-]+"
+          maxLength={30}
+          placeholder="Benutzer01"
+        />
+      </span>
+      <Spacer/>
+      <label className="p2">Passwort</label>
+      <span className="input-small-span">
+        <input
+          type="password"
+          value={passwort}
+          onChange={(e) => setPasswort(e.target.value)}
+          required
+          maxLength={30}
+          placeholder="......"
+        />
+      </span>
+      <Spacer/>
+      <label className="p2">e-mail Adresse</label>
+      <span className="input-small-span">
+        <input
+          type="text"
+          value={mail}
+          onChange={(e) => setmail(e.target.value)}
+          required
+          maxLength={30}
+          placeholder="beispiel@provider.com"
+        />
+      </span>
+      <Spacer/>
+      <button type="submit" onClick={handleSubmit} className="btn btn-primary">
+        Erstellen
+      </button>
 
-      <form onSubmit={handleSubmit} className="">
-        <div className="card">
-          <div className="column">
-            <div className="row">
-              <label className="p2">Nutzername</label>
-              <input className="p2"
-                onChange={(e) => setUsername(e.target.value)}
-                type="text"
-                placeholder="Benutzer01"
-              />
-            </div>
-            <div className="row">
-              <label className="p2">Passwort</label>     
-              <input className="p2"
-                onChange={(e) => setPasswort(e.target.value)}
-                type="password"
-                placeholder="......."
-              />
-            </div>
-            <div className="row">
-              <label className="p2">Rolle</label>
-              <input className="p2"
-                onChange={(e) => setRole(e.target.value)}
-                type="text"
-                placeholder="hier nur MASTER eintragen!"
-                pattern="MASTER"
-              />
-              <p>Könnte man auch Hardcoden da Masteraccount erstellt werden soll</p>
-            </div>
-            <div className="row">
-              {error && (
-                <div className="error-message">
-                {error}
-                </div>
-              )}
-            </div> 
-          </div>
-          <div className="column">
-            {/* <div className="row">
-              <label className="p2">Zentrum ID</label>
-              <input className="p2"
-                onChange={(e) => setZentrum(e.target.value)}
-                type="text"
-                placeholder="1"
-              />
-            </div> */}
-            {/* <div className="row">
-              <label className="p2">Studien ID</label>
-              <input className="p2"
-                onChange={(e) => setStudie(e.target.value)}
-                type="text"
-                placeholder="1"
-              />
-            </div>  */}
-            <div className="row">
-              <label className="p2">email Adresse</label>
-              <input className="p2"
-                onChange={(e) => setmail(e.target.value)}
-                type="text"
-                placeholder="Beispiel@provider.com"
-              />
-            </div>   
-          </div>
-        </div>
-        <div class="hr-container">
-          <p class="hr-vert-small"/>
-        </div>
-        <button>
-          Register
-        </button> 
-      </form>
+
+ 
     </div>
   );
 }

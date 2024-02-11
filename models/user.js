@@ -18,11 +18,11 @@ const userSchema = new mongoose.Schema({
     },
     Zentrum_ID: {
         type: String,
-        required: true,
+        default : 1
     },
     Studien_ID: {        
         type: String,
-        required: true,
+        default: ""
     },
     mail:{
         type: String,
