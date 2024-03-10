@@ -45,7 +45,7 @@ export default function NewStaffMember() {
 
     useEffect(() => {
         sendPostRequest();
-      }, []);
+      });
     
       async function sendPostRequest() {
         const key = {
@@ -79,7 +79,7 @@ export default function NewStaffMember() {
  
     useEffect(() => {
         updateTable();
-    }, [])
+    })
 
     const updateTable = async () =>{
         const key = {

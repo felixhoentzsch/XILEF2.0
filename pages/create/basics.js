@@ -66,7 +66,7 @@ useEffect(() => {
     setRandomizationParameter(tolerance + 'tl');
     console.log(RandomizationParameter);
   }
-}, [randomize, blockSize, biasedCoin, tolerance, RandomizationParameter]); // Dependency array to control when the effect runs
+}, [randomize, blockSize, biasedCoin, tolerance, RandomizationParameter, chooseBlock]); // Dependency array to control when the effect runs
 
 
   const handleRandomizeChange = (event) => {
@@ -187,62 +187,43 @@ const handleBlockSizeChange = (event) => {
     }
   };
 
-  const handleNumberOfStraticicationChange = (event) => {
-    const newNumberOfStraticication = event.target.value;
-    console.log(newNumberOfStraticication);
-    setNumberOfStraticication(newNumberOfStraticication);
 
-    const newNumber = parseInt(newNumberOfStraticication)
-    const newInputFields = Array(newNumber).fill('');
-    console.log(newInputFields)
-    setStraticicationFields(newInputFields);
-
-  }
-
-  const handleStraticicationFieldsChance = (index, event) => {
-    const newInputFields = [...straticicationFields];
-    newInputFields[index] = event.target.value;
-    setStraticicationFields(newInputFields);
-  };
-
-
-
-  const handleCreateList = () => {
-    if (randomize === 'block' && chooseBlock === 'fixed') {
-      const list = Block({
-        caseNumber,
-        blockSize,
-        inputFields,
-      });
-      console.log('Erstellte Liste:', list);
-      // Hier können Sie die Liste weiterverarbeiten oder anzeigen
-    }else if(randomize === 'block' && chooseBlock === 'variable'){
-      const list = varBlocks({
-        caseNumber, 
-        blockSize,
-        inputFields
-      });
-      console.log('Erstellte Liste:', list) 
-    }
-    else if(randomize === 'coin'){
-      const list = BiasedCoin({
-        caseNumber, 
-        biasedCoin
-      });
-      console.log('Erstellte Liste:', list)
-    }
-    else if(randomize === 'inbalance'){
-      const list = MTI({
-        caseNumber, 
-        tolerance
-      });
-      console.log('Erstellte Liste:', list)
-    }
-     else {
-      console.log('Randomisierung nicht ausgewählt');
-      // Hier können Sie eine Meldung anzeigen, wenn die Randomisierung nicht ausgewählt ist
-    }
-  };
+  // const handleCreateList = () => {
+  //   if (randomize === 'block' && chooseBlock === 'fixed') {
+  //     const list = Block({
+  //       caseNumber,
+  //       blockSize,
+  //       inputFields,
+  //     });
+  //     console.log('Erstellte Liste:', list);
+  //     // Hier können Sie die Liste weiterverarbeiten oder anzeigen
+  //   }else if(randomize === 'block' && chooseBlock === 'variable'){
+  //     const list = varBlocks({
+  //       caseNumber, 
+  //       blockSize,
+  //       inputFields
+  //     });
+  //     console.log('Erstellte Liste:', list) 
+  //   }
+  //   else if(randomize === 'coin'){
+  //     const list = BiasedCoin({
+  //       caseNumber, 
+  //       biasedCoin
+  //     });
+  //     console.log('Erstellte Liste:', list)
+  //   }
+  //   else if(randomize === 'inbalance'){
+  //     const list = MTI({
+  //       caseNumber, 
+  //       tolerance
+  //     });
+  //     console.log('Erstellte Liste:', list)
+  //   }
+  //    else {
+  //     console.log('Randomisierung nicht ausgewählt');
+  //     // Hier können Sie eine Meldung anzeigen, wenn die Randomisierung nicht ausgewählt ist
+  //   }
+  // };
 
 
   

@@ -20,7 +20,7 @@ const Index = () => {
         </div>
       </div>
       <div className="text-bottom">
-        <div>let's get started</div>
+        <div>let&apos;s get started</div>
       </div>
     </div>
   );

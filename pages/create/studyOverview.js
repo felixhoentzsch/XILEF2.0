@@ -41,7 +41,7 @@ export default function StudyOverview() {
 
   useEffect(() => {
       sendPostRequest();
-  }, []);
+  });
 
   async function sendPostRequest() {
     const key = {
