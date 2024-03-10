@@ -28,7 +28,7 @@ export default function MainMenu() {
 
   useEffect(() => {
     sendPostRequest();
-  }, [user]);
+  }, []);
 
   async function sendPostRequest() {
     const key = {
