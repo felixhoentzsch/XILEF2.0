@@ -75,7 +75,7 @@ export default function NewStaffMember() {
           setStudyID(firstUser.Studien_ID)
         }
     
-      })
+      }, [user])
  
     useEffect(() => {
         updateTable();
