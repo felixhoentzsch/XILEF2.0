@@ -6,8 +6,8 @@ import styles from '../styles/Button.module.css';
 export default function Home() {
   const [create, setCreate] = useState(false);
   const [study, setStudy] = useState(false);
-  const [username, setUsername] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [username, setUsername] = useState('');
+  const [passwort, setPasswort] = useState('');
   const [error, setError] = useState('');
   const [isLoaded, setIsLoaded] = useState(false); // State für die Überprüfung, ob die Seite geladen ist
 
@@ -37,7 +37,7 @@ export default function Home() {
     try {
       const res = await signIn('credentials', {
         username,
-        password,
+        passwort,
         redirect: false,
       });
       if (res.error) {
@@ -55,7 +55,7 @@ export default function Home() {
     try {
       const res = await signIn('credentials', {
         username,
-        password,
+        passwort,
         redirect: false,
       });
       if (res.error) {
@@ -100,7 +100,7 @@ export default function Home() {
             <div className="form-group">
               <label htmlFor="password">Passwort: </label>
               <span className="input-span">
-                <input type="password" name="login-password" onChange={(e) => setPassword(e.target.value)}></input>
+                <input type="password" name="login-password" onChange={(e) => setPasswort(e.target.value)}></input>
               </span>
             </div>
             <div className="form-group">
@@ -121,7 +121,7 @@ export default function Home() {
             </div>
             <div className="form-group">
               <label htmlFor="password">Passwort: </label>
-              <span className="input-span"><input type="password" name="login-password" onChange={(e) => setPassword(e.target.value)}></input></span>
+              <span className="input-span"><input type="password" name="login-password" onChange={(e) => setPasswort(e.target.value)}></input></span>
             </div>
             <div className="form-group">
               <button name="login">LOGIN</button>
