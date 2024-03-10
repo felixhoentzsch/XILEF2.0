@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 import styles from '../styles/Button.module.css';
-import style from '../styles/Home.module.css';
 
 export default function Home() {
   const [create, setCreate] = useState(false);

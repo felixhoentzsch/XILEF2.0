@@ -77,6 +77,7 @@ export default NextAuth({
   pages: {
     signIn: "/create",
     signIn: "/study", 
+    signIn: "/home"
   },
   cookie: {
     secure: false,

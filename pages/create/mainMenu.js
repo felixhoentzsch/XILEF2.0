@@ -60,7 +60,7 @@ export default function MainMenu() {
       setRole(firstUser.role)
     }
 
-  })
+  }, [user])
 
   function handleSignOut() {
     signOut({ callbackUrl: '/home' }); // Hier kannst du die gewünschte Seite angeben
