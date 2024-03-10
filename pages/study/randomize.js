@@ -86,7 +86,7 @@ useEffect(() => {
     setGroup(patientOne.group);
     setCreatedAt(patientOne.createdAt);
   }
-}); // Führen Sie diesen Effekt nur aus, wenn sich der Wert von patient ändert
+}, [patient]); // Führen Sie diesen Effekt nur aus, wenn sich der Wert von patient ändert
 
 useEffect(() => {
   if (treatment && group) {
