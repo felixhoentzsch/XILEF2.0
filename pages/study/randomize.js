@@ -135,7 +135,7 @@ useEffect(() => {
 
       <Spacer/>
 
-      <button type="submit" onClick={randomizePatient} className="btn btn-primary">
+      <button type="submit" onClick={randomizePatient} className="btn btn-primary" style={{width: "150px"}}>
         randomisieren
       </button>
     </div>

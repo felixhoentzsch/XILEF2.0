@@ -79,7 +79,7 @@ export default function NewStaffMember() {
  
     useEffect(() => {
         updateTable();
-    })
+    }, [user])
 
     const updateTable = async () =>{
         const key = {
