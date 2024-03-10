@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 
 import PatientModel from "@/models/patient";
+import StudyModel from "@/models/studie";
 import mongodb from "@/utils/mongodb";
 
 export default async function handler(req, res){
@@ -14,6 +15,7 @@ export default async function handler(req, res){
             const { Studien_ID } = req.body; // Daten aus der Anfrage 
             
             const gefundenePatienten = await PatientModel.find({Studie: Studien_ID})
+            //const gefundeneStudie = await StudyModel.find({Studienname: Studien_ID})
 
             if (gefundenePatienten.length > 0) {
                 console.log('Gefundene Benutzer:', gefundenePatienten);
@@ -21,7 +23,7 @@ export default async function handler(req, res){
                 console.log('Keine Benutzer mit der gesuchten Studien_ID gefunden.');
               }
 
-            res.status(201).json(gefundenePatienten);  
+            res.status(201).json(gefundenePatienten);
 
         }catch (error){
             console.log(error)

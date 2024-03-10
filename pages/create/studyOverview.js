@@ -162,7 +162,11 @@ export default function StudyOverview() {
         router.push('/create/mainMenu')
     }    
 
-
+    function handlePrint() {
+        if (typeof window !== 'undefined') {
+          window.print();
+        }
+      }
     
   return (
     <div className='text-container'>
@@ -175,7 +179,7 @@ export default function StudyOverview() {
             <thead>
                 <tr>
                     <th>Parameter</th>
-                    <th>Werte</th>
+                    <th>Wert</th>
                 </tr>
             </thead>
             <tbody>
@@ -230,11 +234,14 @@ export default function StudyOverview() {
         </table>
     
         <Spacer/>
-
+        <div style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
         <button onClick={handleNavigation}>
             <p>Zurück</p>
         </button>
-
+        <button onClick={handlePrint}>
+           <p>Drucken</p>
+        </button>
+        </div>
     </div>    
   )
 }

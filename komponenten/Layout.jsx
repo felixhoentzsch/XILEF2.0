@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 
 import Fusszeile from '../komponenten/Fusszeile'
 import Seitenbegrenzung from './Seitenbegrenzung'
+import Timer from './Timer'
 import { Children } from 'react'
 import { AuthProvider } from '@/pages/Providers'
 
@@ -23,7 +24,7 @@ export default function Layout({children}) {
         {children}
         </AuthProvider>
         </div>
-
+      <Timer/>
       <Fusszeile />
       <Seitenbegrenzung/>
     </div>

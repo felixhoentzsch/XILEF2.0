@@ -1,10 +1,12 @@
 "use client"
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import axios from "axios";
 import { useState } from 'react'
 import Spacer from "@/komponenten/Spacer";
 import { useSession } from "next-auth/react";
+import { useRouter } from 'next/router';
+import { resolve } from 'path';
 
 export default function Randomize() {
 
@@ -15,6 +17,15 @@ export default function Randomize() {
   const [error, setError] = useState('');
   const [sucsess, setSucsess] = useState('')
   const [patientName, setPatientName] = useState('');
+
+  const [patient, setPatient] = useState('') 
+  const [treatment, setTreatment] = useState([])
+  const [Zentrum, setZentrum] = useState('')
+  const [group, setGroup] = useState('')
+  const [createdAt, setCreatedAt] = useState('')
+  const [selectedTreatment, setSelectedTreatment] = useState('')
+
+  const router = useRouter();
 
   const randomizePatient = async () => {
     setError ('')
@@ -39,9 +50,20 @@ export default function Randomize() {
         });
         
         if (response.status === 201) {
-          setPatientName('')         
+          setPatient(response.data)   
+          //console.log(response.data)     
           setSucsess('Patient erfolgreich randomisiert');
-          // --> hier dann den Mailversand einfügen!!
+          // router.push({
+          //   pathname: 'randomizePatient',
+          //   query:{
+          //     Name: patientName,
+          //     Zentrum: Zentrum,
+          //     Behandlung: selectedTreatment,
+          //     createdAt: createdAt
+
+          //   },
+          // });
+          setPatientName('') 
         } else {
           setError('Fehler beim Speichern des Patienten');
         }
@@ -52,6 +74,41 @@ export default function Randomize() {
         setError("Alle Felder sind auszufüllen");
       }
   }
+
+useEffect(() => {
+  if (patient.length > 0) {
+    const Behandlung = patient[1];
+    setTreatment(Behandlung);
+    //console.log('Behandlungen: '+treatment)
+    const patientOne = patient[0];
+    setPatientName(patientOne.ID)
+    setZentrum(patientOne.Zentrum);
+    setGroup(patientOne.group);
+    setCreatedAt(patientOne.createdAt);
+  }
+}, [patient]); // Führen Sie diesen Effekt nur aus, wenn sich der Wert von patient ändert
+
+useEffect(() => {
+  if (treatment && group) {
+    setSelectedTreatment(treatment[group]);
+    //console.log('Test '+selectedTreatment)
+  }
+}, [treatment, group]); // Führen Sie diesen Effekt nur aus, wenn sich der Wert von treatment oder group ändert
+
+useEffect(() => {
+  if (selectedTreatment !== '') { // Überprüfen, ob selectedTreatment einen Wert hat
+    router.push({
+      pathname: 'randomizePatient',
+      query:{
+        Name: patientName,
+        Zentrum: Zentrum,
+        Behandlung: selectedTreatment,
+        createdAt: createdAt
+      },
+    });
+  }
+}, [selectedTreatment]);
+
 
   return (
     <div className='text-container'>

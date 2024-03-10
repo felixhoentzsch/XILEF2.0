@@ -29,7 +29,6 @@ export default function Index() {
     //     }
     // }
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();   
     try {

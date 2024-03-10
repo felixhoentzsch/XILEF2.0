@@ -5,9 +5,11 @@ import axios from 'axios'
 import { useState } from 'react'
 import Spacer from "@/komponenten/Spacer";
 import { useSession } from "next-auth/react";
+import { useRouter } from 'next/router';
 
 export default function BreakingTheBlind() {
   const { data: session } = useSession();
+  const router = useRouter();
 
   const [messages, setMessages] = useState({
     error: '',
@@ -16,13 +18,10 @@ export default function BreakingTheBlind() {
       'Mit dem Drücken des Buttons wird Ihnen die Randomiserungsliste der Studie angezeigt.\n Es wird ein Vermerk angefertigt, welcher bestätigt, dass dies geschehen ist.',
   });
 
+  const [back, setBack] = useState(false)
+
   const [list, setList] = useState([]);
 
-  function handlePrint() {
-    if (typeof window !== 'undefined') {
-      window.print();
-    }
-  }
 
   async function showList() {
     setMessages({ error: '', success: '' });
@@ -47,6 +46,7 @@ export default function BreakingTheBlind() {
         setList(listData);
         console.log(listData);
         setMessages({ success: 'Liste erfolgreich angezeigt', warning: '' });
+        setBack(true)
       } else {
         setMessages({ error: 'Fehler beim fetchen der Liste' });
       }
@@ -55,13 +55,28 @@ export default function BreakingTheBlind() {
     }
   }
 
+  const handleNavigation = () => {
+    router.push('/create/mainMenu')
+}  
+
+function printDiv() {
+  const content = document.getElementById('content').innerHTML;
+  const printWindow = window.open('', '_blank');
+  printWindow.document.open();
+  printWindow.document.write('<html><head><title>Druckvorschau</title></head><body>');
+  printWindow.document.write(content);
+  printWindow.document.write('</body></html>');
+  printWindow.document.close();
+  printWindow.print();
+}
+
   return (
     <div className="text-container">
       {messages.error && (
         <div className="error-message">{messages.error}</div>
       )}
       {messages.success && (
-        <div className="sucsess-message">{messages.success}</div>
+        <div className="sucsess-message" style={{marginBottom: '30px'}}>{messages.success}</div>
       )}
       {!list.length && (
         <>
@@ -81,16 +96,9 @@ export default function BreakingTheBlind() {
           )}
         </>
       )}
-      <button
-        type="submit"
-        onClick={showList}
-        className="btn btn-primary"
-      >
-        Liste anzeigen
-      </button>
-      <Spacer />
+      {/* <div className='spacer' style={{rotate: "90deg"}}/> */}
 
-      <div className="scrollable-container printable-content">
+      <div className="scrollable-container" id='content'>
         <div className="horizontal-scroll">
           {list.map((item, index) => (
             index % 20 === 0 && (
@@ -116,10 +124,28 @@ export default function BreakingTheBlind() {
       </div>
 
       <Spacer />
+      <div style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
+      {!back &&
+      <button
+        type="submit"
+        onClick={showList}
+        className="btn btn-primary">
+        Liste anzeigen
+      </button>
+      } 
+      { back &&
+        <button
+        type="submit"
+        onClick={handleNavigation}
+        className="btn btn-primary">
+        Zurück
+      </button>
+      }
 
-      <button onClick={handlePrint}>Drucken</button>
+      <button className = "btn btn-primary"onClick={printDiv}>Drucken</button>
 
       <div className="spacer" />
+    </div>
     </div>
   );
 }

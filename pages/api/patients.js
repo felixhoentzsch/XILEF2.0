@@ -29,7 +29,7 @@ export default async function handler(req, res) {
           const newPatient = new PatientModel({ ID: patientName, group: firstValueInList, Studie: Studie, Zentrum: Zentrum  });      
           await newPatient.save();      
         
-          res.status(201).json(newPatient);
+          res.status(201).json([newPatient, foundStudy.Name_Behandlung]);
 
           // Hier kannst du firstValueInList verwenden oder weiterverarbeiten
           console.log('Wert des ersten Eintrags in Rando_Liste_use:', firstValueInList);

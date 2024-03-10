@@ -10,9 +10,9 @@ import Block from "../../randomize_methods/Block";
 import varBlocks from "../../randomize_methods/var_blocks"
 import BiasedCoin from "../../randomize_methods/BiasedCoin"
 import MTI from "../../randomize_methods/MTI"
-import { SP } from "next/dist/shared/lib/utils";
 
 import { useRouter } from "next/navigation"
+import Timer from "@/komponenten/Timer";
 
 
 export default function Basics() {
@@ -40,6 +40,15 @@ export default function Basics() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [warning, setWarning] = useState('')
+
+  //-------Stratifizierung-----------------------
+  const[straticicationOption,setStraticicationOption]= useState(false)
+  const [numberOfStraticication, setNumberOfStraticication] = useState('')
+  const [straticicationFields, setStraticicationFields] = useState([''])
+
+  const [rowCount, setRowCount] = useState(1); // Anfangszustand: eine Zeile
+  const [textFields, setTextFields] = useState([]); // Für das Hinzufügen von Textfeldern in der Stratifizierungstabelle 
+
 
 //   let list = [];
 
@@ -178,6 +187,26 @@ const handleBlockSizeChange = (event) => {
     }
   };
 
+  const handleNumberOfStraticicationChange = (event) => {
+    const newNumberOfStraticication = event.target.value;
+    console.log(newNumberOfStraticication);
+    setNumberOfStraticication(newNumberOfStraticication);
+
+    const newNumber = parseInt(newNumberOfStraticication)
+    const newInputFields = Array(newNumber).fill('');
+    console.log(newInputFields)
+    setStraticicationFields(newInputFields);
+
+  }
+
+  const handleStraticicationFieldsChance = (index, event) => {
+    const newInputFields = [...straticicationFields];
+    newInputFields[index] = event.target.value;
+    setStraticicationFields(newInputFields);
+  };
+
+
+
   const handleCreateList = () => {
     if (randomize === 'block' && chooseBlock === 'fixed') {
       const list = Block({
@@ -314,11 +343,49 @@ const handleBlockSizeChange = (event) => {
   }, 0); 
 
 
+  // ab hier Stratifizierung 
+
+  const handleStratificationOptions =(event) => {
+
+    if (event.target.value === "yes"){
+      setStraticicationOption(true)
+    }
+    else {
+      setStraticicationOption(false)
+    }
+  }
+
+  const addRow = () => {
+    setRowCount(rowCount + 1); // Erhöhe die Anzahl der Zeilen um 1
+  };
+  const dismissRow = () =>{
+    setRowCount(rowCount - 1);
+  }
+
+  const addTextField = () => {
+    setTextFields([...textFields, ""]); // Füge ein leeres Textfeld zum Array hinzu
+  };
+
+  const removeTextField = (index) => {
+    const newTextFieldArray = [...textFields];
+    newTextFieldArray.splice(index, 1); // Entferne das Textfeld an der gegebenen Indexposition
+    setTextFields(newTextFieldArray);
+  };
+
+  const handleTextFieldChange = (value, index) => {
+    const newTextFieldArray = [...textFields];
+    newTextFieldArray[index] = value; // Aktualisiere den Wert des Textfeldes an der gegebenen Indexposition
+    setTextFields(newTextFieldArray);
+  };
+
+
   return (
     <div className="text-container">
       {error && <div className="error-message">{error}</div>}
       {success && <div className="sucsess-message">{success}</div>}
       {warning && <div className="warning-message">{warning}</div>}
+
+      <Timer/>
 
       <h2>Festlegen von Studienparametern</h2>
 
@@ -454,7 +521,7 @@ const handleBlockSizeChange = (event) => {
           <div>
             <label>Gewichtung der Münze</label>
             <div className="tooltip"><button className={styles.tip} >?</button>
-              <span className="tooltiptext"> Refernzwert = Kontrollgruppe <br/> 0.6 = 60% Chance auf Kontrollgruppe</span>
+              <span className="tooltiptext"> Refernzwert = {nameFields[0]} <br/> 0.6 = 60% Chance auf {nameFields[0]}</span>
             </div>
             <br/>
             <span className="input-small-span">
@@ -583,12 +650,14 @@ const handleBlockSizeChange = (event) => {
           <label className="p2">Blocklänge:</label>
           <span className="input-small-span">
           <input
+            style={{width: "380px"}}
             id="blockSizeInput"
             type="number"
             value={blockSize}
             onChange={handleBlockSizeChange}
             required
             placeholder={"Die Blocklänge ist ein vielfaches von: "+sumOfInputFields}
+            
           />
           </span>
         </div>
@@ -599,11 +668,12 @@ const handleBlockSizeChange = (event) => {
 
           <Spacer/>
 
-          <label className="p2"> maximale Blocklänge:</label>
-          <span className="input-small-span">
+          <label> maximale Blocklänge:</label>
+          <span className="input-small-span" style={{width: "480px"}}>
           <input
+            style={{width: "480px"}}
             id="blockSizeInput"
-            type="text"
+            type="number"
             value={blockSize}
             onChange={handleBlockSizeChange}
             required
@@ -614,14 +684,91 @@ const handleBlockSizeChange = (event) => {
         </div>
       )}  
 
+      {randomize !== "" &&
+        <>
+          <Spacer/>
+
+          <div>
+            <label>Stratifizierung einbinden?</label>
+            <br/>
+            <input
+              type="radio"
+              value="yes"
+              checked={straticicationOption === true}
+              onChange={handleStratificationOptions}
+            />
+            <label>ja</label>
+          {/* </div>
+          <div> */}
+            <input
+              type="radio"
+              value= "no"
+              checked={straticicationOption === false}
+              onChange={handleStratificationOptions}
+            />
+            <label>nein</label>
+          </div>
+
+          {straticicationOption &&
+             <div>
+             <br /><br />
+             <table>
+               <thead>
+                 <tr>
+                   <th>Name der Stratifizierung</th>
+                   <th>values??</th>
+                 </tr>
+               </thead>
+               <tbody>
+                 {[...Array(rowCount)].map((_, index) => (
+                   <tr key={index}>
+                     <td>
+                       <input
+                         className="input"
+                         type="text"
+                         // value={value}
+                         // onChange={(event) => handleInputNameChange(index, event)}
+                         maxLength={100}
+                         style={{width: '50%'}}
+                       />
+                     </td>
+                     <td>
+                       {textFields.map((value, index) => (
+                         <div key={index}>
+                           <input
+                             type="text"
+                             value={value}
+                             onChange={(e) => handleTextFieldChange(e.target.value, index)}
+                           />
+                         </div>
+                       ))}
+                       <button onClick={addTextField} className={styles.square}>+</button>
+                       <button onClick={() => removeTextField(textFields.length - 1)} className={textFields.length <= 2 ? styles.disabledSquare : styles.square }
+                       disabled={textFields.length <= 2}>-</button>
+                     </td>
+                   </tr>
+                 ))}
+                      <tr>
+                     <td>
+                     <button onClick={addRow} className={styles.square}>+</button>
+                     <button onClick={dismissRow} disabled={rowCount === 1} className={rowCount === 1 ? styles.disabledSquare : styles.square}>-</button>
+                     </td>
+                   </tr>
+               </tbody>
+             </table>
+           </div>
+          }
+        </>
+     } 
+
       <Spacer/>
 
       <button type="submit" onClick={createStudy} className="btn btn-primary">
         Erstellen
       </button>
-      <button type="button" onClick={handleCreateList} className="btn btn-secondary">
+      {/* <button type="button" onClick={handleCreateList} className="btn btn-secondary">
       Liste erstellen
-      </button>
+      </button> */}
       <div className="spacer"/>
     </div>
   );

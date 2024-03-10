@@ -9,7 +9,7 @@ const patientSchema = new mongoose.Schema({
     Strata: {
         type: [String], // Hier wurde "Number" zu "String" geändert
         required: false,
-        default: ['x','x']
+        default: ['','']
     },
     group: {
         type: String,

@@ -1,26 +1,26 @@
 
 
-/* @font-face {
+@font-face {
 	font-family: 'SportingGrotesque-Regular';
 	font-weight: normal;
 	font-style: normal;
-	src: url('../xilef/fonts/SportingGrotesque-Regular.eot');
-	src: url('../xilef/fonts/SportingGrotesque-Regular.eot?#iefix') format('embedded-opentype'),
-		url('../xilef/fonts/SportingGrotesque-Regular.woff') format('woff'),
-		url('../xilef/fonts/SportingGrotesque-Regular.ttf')  format('truetype'),
-		url('../xilefF/fonts/SportingGrotesque-Regular.svg#SportingGrotesque-Regular') format('svg');
+	src: url('../fonts/SportingGrotesque-Regular.eot');
+	src: url('../fonts/SportingGrotesque-Regular.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/SportingGrotesque-Regular.woff') format('woff'),
+		url('../fonts/SportingGrotesque-Regular.ttf')  format('truetype'),
+		url('../fonts/SportingGrotesque-Regular.svg#SportingGrotesque-Regular') format('svg');
 }
 
 @font-face {
 	font-family: 'SportingGrotesque-Bold';
 	font-weight: normal;
 	font-style: normal;
-	src: url('../xilef/fonts/SportingGrotesque-Bold.eot');
-	src: url('../xilef/fonts/SportingGrotesque-Bold.eot?#iefix') format('embedded-opentype'),
-		url('../xilef/fonts/SportingGrotesque-Bold.woff') format('woff'),
-		url('../xilef/fonts/SportingGrotesque-Bold.ttf')  format('truetype'),
-		url('../xilef/fonts/SportingGrotesque-Bold.svg#SportingGrotesque-Bold') format('svg');
-} */
+	src: url('../fonts/SportingGrotesque-Bold.eot');
+	src: url('../fonts/SportingGrotesque-Bold.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/SportingGrotesque-Bold.woff') format('woff'),
+		url('../fonts/SportingGrotesque-Bold.ttf')  format('truetype'),
+		url('../fonts/SportingGrotesque-Bold.svg#SportingGrotesque-Bold') format('svg');
+}
 
 
 ::-moz-selection {
@@ -742,7 +742,7 @@ padding-top:0px;
 	padding: 5px 0;
 	position: absolute;
 	z-index: 3;
-	bottom: 125%;
+	bottom: 105%;
 	left: 50%;
 	margin-left: -60px;
 	opacity: 0;
@@ -770,8 +770,8 @@ padding-top:0px;
 
 
   .error-message {
-	background-color: #f44336; /* Rote Hintergrundfarbe */
-	color: white; /* Weiße Textfarbe */
+	background-color: #f44336a6; /* Rote Hintergrundfarbe */
+	color: black; /* Weiße Textfarbe */
 	padding: 10px; /* Innenabstand für den Text */
 	border-radius: 5px; /* Abgerundete Ecken */
 	margin-top: 10px; /* Abstand nach oben */
@@ -779,8 +779,8 @@ padding-top:0px;
 	text-align: center; /* Zentrierte Ausrichtung */
   }
   .sucsess-message {
-	background-color: #4ef235; /* Rote Hintergrundfarbe */
-	color: white; /* Weiße Textfarbe */
+	background-color: #4ef235a6; /* Rote Hintergrundfarbe */
+	color: black; /* Weiße Textfarbe */
 	padding: 10px; /* Innenabstand für den Text */
 	border-radius: 5px; /* Abgerundete Ecken */
 	margin-top: 10px; /* Abstand nach oben */
@@ -788,8 +788,8 @@ padding-top:0px;
 	text-align: center; /* Zentrierte Ausrichtung */
   }
   .warning-message {
-	background-color: #f2aa35; /* Rote Hintergrundfarbe */
-	color: white; /* Weiße Textfarbe */
+	background-color: #f2aa35a6; /* Rote Hintergrundfarbe */
+	color: black; /* Weiße Textfarbe */
 	padding: 10px; /* Innenabstand für den Text */
 	border-radius: 5px; /* Abgerundete Ecken */
 	margin-top: 10px; /* Abstand nach oben */
@@ -851,3 +851,210 @@ padding-top:0px;
 	display: flex; /* Verwende Flexbox, um die Elemente horizontal anzuordnen */
 	align-items: center; /* Zentriere die Elemente vertikal innerhalb der Flexbox */
   }
+
+  .scrollable-container {
+	overflow: auto; /* Aktiviere die horizontale Scrollleiste bei Bedarf */
+	resize: both;
+	border: 1px solid #F0F0F0;
+	width: 60%;
+    display: inline-block;
+  }
+
+  .horizontal-scroll {
+	display: flex;
+	flex-wrap: nowrap;
+  }
+
+  .randListTable {
+	border-collapse: collapse;
+	margin-right: 10px;
+  }
+
+  .randListTh, .randListTd{
+	border: 1px solid #ccc;
+	padding: 8px;
+	text-align: left;
+  }
+
+
+
+  .trenner{
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 2px solid lightgrey;
+	padding-bottom: 20px;
+  }
+
+
+  
+
+  
+  .a {
+	text-decoration: none;
+  }
+    
+  .container > section {
+	margin: 0 auto;
+	padding: 3em 1em;
+	text-align: center;
+  }
+
+  /* .color {  background: #ecf0f1;} */
+    
+  nav a {
+	position: relative;
+	display: inline-block;
+	margin: 15px 15px;
+	outline: none;
+	color: #fff;
+	text-decoration: none;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: normal;
+	text-shadow: 0 0 1px rgba(255,255,255,0.3);
+	font-size: 1em;
+  }
+  
+  nav a:hover,
+  nav a:focus {
+	outline: none;
+	font-weight: 900;
+  }
+  
+  /* Effect 7: second border slides up */
+  .cl-effect a {
+	padding: 12px 10px 10px;
+	color: #005192;
+	text-shadow: none;
+	font-weight: 100;
+  }
+  
+  .cl-effect a::before,
+  .cl-effect a::after {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	width: 100%;
+	height: 2.5px;
+	background: #005192;
+	content: '';
+	-webkit-transition: -webkit-transform 0.3s;
+	-moz-transition: -moz-transform 0.3s;
+	transition: transform 0.3s;
+	-webkit-transform: scale(0.85);
+	-moz-transform: scale(0.85);
+	transform: scale(0.85);
+  }
+  
+  .cl-effect a::after {
+	opacity: 0;
+	-webkit-transition: top 0.3s, opacity 0.3s, -webkit-transform 0.3s;
+	-moz-transition: top 0.3s, opacity 0.3s, -moz-transform 0.3s;
+	transition: top 0.3s, opacity 0.3s, transform 0.3s;
+  }
+  
+  .cl-effect a:hover::before,
+  .cl-effect a:hover::after,
+  .cl-effect a:focus::before,
+  .cl-effect a:focus::after {
+	-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	transform: scale(1);
+  }
+  
+  .cl-effect a:hover::after,
+  .cl-effect a:focus::after {
+	top: 0%;
+	opacity: 1;
+  }
+
+  .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    height: 100vh;
+    text-align: center;
+    transition: 1s ease-in-out; /* Hinzugefügt für eine sanfte Animation */
+  } 
+
+ .hide {
+    opacity: 0; /* Opazität auf 0 setzen, um auszublenden */
+ }
+
+  .hero-headline {
+	  background: radial-gradient(#005192, white);
+	  background-size: 100% 200%;
+	  background-position: 50% 100%;
+	  -webkit-background-clip: text;
+	  background-clip: text;
+	  -webkit-text-fill-color: transparent;
+	  margin: 0;
+	  font-size: 10vh
+  }
+
+
+
+  @import url('https://fonts.googleapis.com/css?family=Roboto:700');
+@keyframes showTopText {
+  0% { transform: translate3d(0, 100%, 0); }
+  40%, 60% { transform: translate3d(0, 50%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+@keyframes showBottomText {
+  0% { transform: translate3d(0, -100%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+.animated-title {
+  font-family: 'SportingGrotesque-Bold', serif;
+  color: #005192;
+  height: 90vmin;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vmin;
+}
+.animated-title > div {
+  height: 50%;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+}
+.animated-title > div div {
+  font-size: 7vmin;
+  padding: 1vmin 0;
+  position: absolute;
+}
+.animated-title > div div span {
+  display: block;
+  color: #005192a6;
+}
+.animated-title > div.text-top {
+  border-bottom: 1vmin solid #005192;
+  top: 0;
+}
+.animated-title > div.text-top div {
+  animation: showTopText 1s;
+  animation-delay: 0.5s;
+  animation-fill-mode: forwards;
+  bottom: 0;
+  transform: translate(0, 100%);
+}
+.animated-title > div.text-top div span:first-child {
+  color: #005192;
+  font-size: 12vmin
+}
+.animated-title > div.text-bottom {
+  bottom: 0;
+}
+.animated-title > div.text-bottom div {
+  animation: showBottomText 0.5s;
+  animation-delay: 1.75s;
+  animation-fill-mode: forwards;
+  top: 0;
+  transform: translate(0, -100%);
+  font-size: 5vmin
+}
+  

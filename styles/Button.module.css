@@ -18,3 +18,26 @@
 	color: #ffffff;
 	transition: all 0.5s ease-out;
 }
+
+.square{
+    border-radius: 10px;
+    height: 20px;
+    width: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    margin-right: 5px;
+}
+
+.disabledSquare{
+    width: 20px; 
+    height: 20px;
+    border-radius: 10px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.disabledSquare:hover{
+    background: #BFBFBF;
+	border: 2px solid grey;
+	color: #ffffff;
+	transition: all 0.5s ease-out;
+}
+
+  

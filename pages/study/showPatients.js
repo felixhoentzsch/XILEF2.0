@@ -1,7 +1,7 @@
 "use client"
 
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
@@ -19,9 +19,38 @@ export default function ShowPatients() {
   const [error, setError] = useState('')
   const [sucsess, setSucsess] = useState('')
 
+  const [study, setStudy] = useState([])
+  const [Behandlung, setBehandlung] = useState('')
+
   const {data:session} = useSession();
-  const Studie = session?.user?.Studie
-  const Studien_ID = Studie
+  const Studien_ID = session?.user?.Studie
+  const Benutzer = session?.user?.username
+
+  useEffect(() => {
+    updateTable();
+    getStudy();
+  }, []);
+  
+  useEffect(() => {
+    if (study.length > 0) {
+      const study1 = study[0];
+      const Behandlung = study1.Name_Behandlung;
+  
+      const updatedPatients = patients.map((patient, index) => {
+        return {
+          ...patient,
+          //group: index < Behandlung.length ? index.toString() : '',
+          group: Behandlung[1]
+          //treatment: Behandlung[index] || ''
+        };
+      });
+  
+      setPatients(updatedPatients);
+      console.log(updatedPatients)
+    }
+  }, [study]);
+  
+  
 
   const updateTable = async () =>{
     const key = {
@@ -36,7 +65,7 @@ export default function ShowPatients() {
      if (response.status === 201) {
       const savedPatients = response.data;
       console.log(savedPatients)
-      setPatients([...patients, ...savedPatients]);
+      setPatients([...savedPatients]);
       setSucsess('Patiententabelle erfolgreich aktualisiert')
       }else if(response.status === 422) {
         setError('Fehler 1')
@@ -50,7 +79,34 @@ export default function ShowPatients() {
     }   
   }
 
-  const back = ()=>  {
+  const getStudy = async () =>{
+    const key = {
+      Benutzer
+    };  
+    try {
+      const response = await axios.post("https://main.d3qs3j5nnfqi5m.amplifyapp.com/api/fetchStudyData", key, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+     if (response.status === 201) {
+      const study = response.data;
+      setStudy(study)
+      console.log('Test'+study)
+      }else if(response.status === 422) {
+        setError('Fehler 1')
+      }else {
+        // Fehler beim Speichern des Mitarbeiters
+        setError('Fehler 2');
+      }
+    } catch (error) {
+      //setError('Fehler beim Senden der Anfrage:', error.response);
+      setError("Fehler 3!")
+    }   
+  }
+
+
+  const handleNavigation = ()=>  {
     router.push("/study/mainMenu")
   }    
 
@@ -61,9 +117,9 @@ export default function ShowPatients() {
 
       <table>
         <caption>Liste aller Patienten         
-          <button type="button" className={styles.tip} onClick={updateTable}>
+          {/* <button type="button" className={styles.tip} onClick={updateTable}>
             <span>🔄</span> 
-          </button>
+          </button> */}
         </caption>
         <thead>
           <tr>
@@ -87,9 +143,13 @@ export default function ShowPatients() {
 
       <Spacer/>
 
-      <button type="submit" onClick={back} className="btn btn-primary">
+      <button type="submit" onClick={handleNavigation} className="btn btn-primary">
         zurück
       </button>
     </div>
   )
 }
+
+
+
+

@@ -130,7 +130,7 @@ export default function NewStaffMember() {
             };
   
             try {
-                const resUserExists = await fetch('https://main.d3qs3j5nnfqi5m.amplifyapp.com/api/userExists', {
+                const resUserExists = await fetch('/../api/userExists', {
                     method:"POST",
                     headers:{
                         "Content-Type": "application/json",
@@ -283,7 +283,7 @@ export default function NewStaffMember() {
                 <thead>
                     <tr>
                         <th className="p2">Benutzername</th>
-                        <th className="p2">Passwort</th>
+                        {/* <th className="p2">Passwort</th> */}
                         <th className="p2">Rolle</th>
                         <th className="p2">e-mail</th>
                     </tr>
@@ -292,7 +292,7 @@ export default function NewStaffMember() {
                     {staffMembers.map((staffMember, index) => (
                         <tr key={index}>
                             <td>{staffMember.username}</td>
-                            <td>{staffMember.passwort}</td>
+                            {/* <td>{staffMember.passwort}</td> */}
                             <td>{staffMember.role}</td>
                             <td>{staffMember.mail}</td>
                         </tr>

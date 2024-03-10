@@ -62,6 +62,9 @@ export default function MainMenu() {
 
   })
 
+  function handleSignOut() {
+    signOut({ callbackUrl: '/home' }); // Hier kannst du die gewünschte Seite angeben
+  }
 
 
   return (
@@ -78,7 +81,7 @@ export default function MainMenu() {
         {studyID === "" &&
           <Link href="/create/basics">
             <button className={styles.wide}>
-              <p>Studienparamter</p>
+              <p>Studienparameter</p>
             </button>
           </Link>
         }
@@ -137,7 +140,7 @@ export default function MainMenu() {
             <Spacer/>
           </>
         }
-        <button onClick={() => signOut()}>Logout</button>
+        <button onClick={handleSignOut}>Logout</button>
         <div className="spacer"/>
       </div>
     </div>
