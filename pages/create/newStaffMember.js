@@ -75,11 +75,11 @@ export default function NewStaffMember() {
           setStudyID(firstUser.Studien_ID)
         }
     
-      })
+      }, [user])
  
     useEffect(() => {
         updateTable();
-    }, [user])
+    })
 
     const updateTable = async () =>{
         const key = {
