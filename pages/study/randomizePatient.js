@@ -19,7 +19,7 @@ export default function RandomizePatient() {
 
   return (
     <div className='text-container'>
-        <div className='sucsess-message'>Patient erfolgreich randomiserit</div>
+        <div className='sucsess-message'>Patient erfolgreich randomisiert</div>
         <h2>Angaben des Patienten</h2>
 
         <Spacer/>
