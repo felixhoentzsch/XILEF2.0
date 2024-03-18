@@ -48,7 +48,7 @@ export default function ShowPatients() {
       setPatients(updatedPatients);
       console.log(updatedPatients)
     }
-  }, [study, patients]);
+  }, [study]);
   
   
 
