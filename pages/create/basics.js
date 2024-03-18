@@ -697,7 +697,7 @@ const handleBlockSizeChange = (event) => {
                <thead>
                  <tr>
                    <th>Name der Stratifizierung</th>
-                   <th>values??</th>
+                   <th>Merkmalsausprägungen</th>
                  </tr>
                </thead>
                <tbody>

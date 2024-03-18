@@ -27,8 +27,8 @@ export default function ShowPatients() {
   const Benutzer = session?.user?.username
 
   useEffect(() => {
-    updateTable();
     getStudy();
+    updateTable(); 
   }, []);
   
   useEffect(() => {
@@ -37,7 +37,8 @@ export default function ShowPatients() {
       const Behandlung = study1.Name_Behandlung;
   
       const updatedPatients = patients.map((patient, index) => {
-        const groupIndex = index % Behandlung.length; // Bestimme den Index im Behandlungsarray für den aktuellen Patienten
+        //console.log("Heee "+ patients[index].group)
+        const groupIndex = patients[index].group; // Bestimme den Index im Behandlungsarray für den aktuellen Patienten
         const group = Behandlung[groupIndex]; // Greife auf die entsprechende Gruppe im Behandlungsarray zu
         return {
           ...patient,
