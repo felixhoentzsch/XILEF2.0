@@ -29,7 +29,7 @@ export default function ShowPatients() {
   useEffect(() => {
     updateTable();
     getStudy();
-  });
+  }, []);
   
   useEffect(() => {
     if (study.length > 0) {
