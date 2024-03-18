@@ -37,11 +37,11 @@ export default function ShowPatients() {
       const Behandlung = study1.Name_Behandlung;
   
       const updatedPatients = patients.map((patient, index) => {
+        const groupIndex = index % Behandlung.length; // Bestimme den Index im Behandlungsarray für den aktuellen Patienten
+        const group = Behandlung[groupIndex]; // Greife auf die entsprechende Gruppe im Behandlungsarray zu
         return {
           ...patient,
-          //group: index < Behandlung.length ? index.toString() : '',
-          group: Behandlung[1]
-          //treatment: Behandlung[index] || ''
+          group: group || '', // Setze die Gruppe des Patienten entsprechend der Behandlung
         };
       });
   
