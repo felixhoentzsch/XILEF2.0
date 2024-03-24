@@ -54,7 +54,7 @@ async function sendPostRequest() {
     Benutzer
   };
     try {
-        const response = await axios.post("http://localhost:3000/api/fetchStudyData", key, {
+        const response = await axios.post("https://main.d3qs3j5nnfqi5m.amplifyapp.com/api/fetchStudyData", key, {
             headers: {
                 'Content-Type': 'application/json',
             },
