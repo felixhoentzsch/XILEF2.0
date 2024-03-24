@@ -43,10 +43,9 @@ export default function Basics() {
 
   //-------Stratifizierung-----------------------
   const[straticicationOption,setStraticicationOption]= useState(false)
-  const [numberOfStraticication, setNumberOfStraticication] = useState('')
-  const [straticicationFields, setStraticicationFields] = useState([''])
 
   const [rowCount, setRowCount] = useState(1); // Anfangszustand: eine Zeile
+  const[stratificationFields, setStratificationFields] = useState([]);
   const [textFields, setTextFields] = useState([]); // Für das Hinzufügen von Textfeldern in der Stratifizierungstabelle 
 
 
@@ -66,7 +65,7 @@ useEffect(() => {
     setRandomizationParameter(tolerance + 'tl');
     console.log(RandomizationParameter);
   }
-}, [randomize, blockSize, biasedCoin, tolerance, RandomizationParameter, chooseBlock]); // Dependency array to control when the effect runs
+}, [randomize, blockSize, biasedCoin, tolerance, RandomizationParameter]); // Dependency array to control when the effect runs
 
 
   const handleRandomizeChange = (event) => {
@@ -187,43 +186,42 @@ const handleBlockSizeChange = (event) => {
     }
   };
 
-
-  // const handleCreateList = () => {
-  //   if (randomize === 'block' && chooseBlock === 'fixed') {
-  //     const list = Block({
-  //       caseNumber,
-  //       blockSize,
-  //       inputFields,
-  //     });
-  //     console.log('Erstellte Liste:', list);
-  //     // Hier können Sie die Liste weiterverarbeiten oder anzeigen
-  //   }else if(randomize === 'block' && chooseBlock === 'variable'){
-  //     const list = varBlocks({
-  //       caseNumber, 
-  //       blockSize,
-  //       inputFields
-  //     });
-  //     console.log('Erstellte Liste:', list) 
-  //   }
-  //   else if(randomize === 'coin'){
-  //     const list = BiasedCoin({
-  //       caseNumber, 
-  //       biasedCoin
-  //     });
-  //     console.log('Erstellte Liste:', list)
-  //   }
-  //   else if(randomize === 'inbalance'){
-  //     const list = MTI({
-  //       caseNumber, 
-  //       tolerance
-  //     });
-  //     console.log('Erstellte Liste:', list)
-  //   }
-  //    else {
-  //     console.log('Randomisierung nicht ausgewählt');
-  //     // Hier können Sie eine Meldung anzeigen, wenn die Randomisierung nicht ausgewählt ist
-  //   }
-  // };
+  const handleCreateList = () => {
+    if (randomize === 'block' && chooseBlock === 'fixed') {
+      const list = Block({
+        caseNumber,
+        blockSize,
+        inputFields,
+      });
+      console.log('Erstellte Liste:', list);
+      // Hier können Sie die Liste weiterverarbeiten oder anzeigen
+    }else if(randomize === 'block' && chooseBlock === 'variable'){
+      const list = varBlocks({
+        caseNumber, 
+        blockSize,
+        inputFields
+      });
+      console.log('Erstellte Liste:', list) 
+    }
+    else if(randomize === 'coin'){
+      const list = BiasedCoin({
+        caseNumber, 
+        biasedCoin
+      });
+      console.log('Erstellte Liste:', list)
+    }
+    else if(randomize === 'inbalance'){
+      const list = MTI({
+        caseNumber, 
+        tolerance
+      });
+      console.log('Erstellte Liste:', list)
+    }
+     else {
+      console.log('Randomisierung nicht ausgewählt');
+      // Hier können Sie eine Meldung anzeigen, wenn die Randomisierung nicht ausgewählt ist
+    }
+  };
 
 
   
@@ -280,6 +278,8 @@ const handleBlockSizeChange = (event) => {
         nameFields,
         caseNumber,
         list,
+        stratificationFields,
+        textFields,
         user,
         mail,
       };
@@ -339,25 +339,45 @@ const handleBlockSizeChange = (event) => {
   const addRow = () => {
     setRowCount(rowCount + 1); // Erhöhe die Anzahl der Zeilen um 1
   };
-  const dismissRow = () =>{
+  const removeRow = () =>{
     setRowCount(rowCount - 1);
   }
 
-  const addTextField = () => {
-    setTextFields([...textFields, ""]); // Füge ein leeres Textfeld zum Array hinzu
+  const handleStratificationCats = (index, event) => {
+    const newValue = event.target.value;
+    const newStratificationFields = [...stratificationFields]; // Eine Kopie des aktuellen Zustands erstellen
+    newStratificationFields[index] = newValue; // Wert des Textfelds in das entsprechende Array-Element speichern
+    setStratificationFields(newStratificationFields); // Aktualisierten Zustand setzen
+    console.log(stratificationFields)
   };
 
-  const removeTextField = (index) => {
-    const newTextFieldArray = [...textFields];
-    newTextFieldArray.splice(index, 1); // Entferne das Textfeld an der gegebenen Indexposition
-    setTextFields(newTextFieldArray);
-  };
 
-  const handleTextFieldChange = (value, index) => {
-    const newTextFieldArray = [...textFields];
-    newTextFieldArray[index] = value; // Aktualisiere den Wert des Textfeldes an der gegebenen Indexposition
-    setTextFields(newTextFieldArray);
-  };
+const addTextField = (rowIndex) => {
+  setTextFields(prevTextFields => {
+    const newTextFields = [...prevTextFields];
+    newTextFields[rowIndex] = newTextFields[rowIndex] ? [...newTextFields[rowIndex], ''] : ['']; // Füge ein neues leeres Textfeld hinzu, falls das Array für diese Zeile noch nicht existiert
+    return newTextFields;
+  });
+};
+
+const removeTextField = (rowIndex) => {
+  setTextFields(prevTextFields => {
+    const newTextFields = [...prevTextFields];
+    if (newTextFields[rowIndex].length > 1) { // Stelle sicher, dass mindestens ein Textfeld vorhanden ist
+      newTextFields[rowIndex].pop(); // Entferne das letzte Textfeld aus dem Array
+    }
+    return newTextFields;
+  });
+};
+
+
+// Funktion zum Aktualisieren des Werts eines Textfelds in einer bestimmten Zeile
+const handleTextFieldChange = (value, rowIndex, textFieldIndex) => {
+  const newTextFieldArray = [...textFields];
+  newTextFieldArray[rowIndex][textFieldIndex] = value; // Aktualisieren des Werts des entsprechenden Textfelds im entsprechenden Array
+  setTextFields(newTextFieldArray);
+  console.log(textFields)
+};
 
 
   return (
@@ -691,56 +711,58 @@ const handleBlockSizeChange = (event) => {
           </div>
 
           {straticicationOption &&
-             <div>
-             <br /><br />
-             <table>
-               <thead>
-                 <tr>
-                   <th>Name der Stratifizierung</th>
-                   <th>Merkmalsausprägungen</th>
-                 </tr>
-               </thead>
-               <tbody>
-                 {[...Array(rowCount)].map((_, index) => (
-                   <tr key={index}>
-                     <td>
-                       <input
-                         className="input"
-                         type="text"
-                         // value={value}
-                         // onChange={(event) => handleInputNameChange(index, event)}
-                         maxLength={100}
-                         style={{width: '50%'}}
-                       />
-                     </td>
-                     <td>
-                       {textFields.map((value, index) => (
-                         <div key={index}>
-                           <input
-                             type="text"
-                             value={value}
-                             onChange={(e) => handleTextFieldChange(e.target.value, index)}
-                           />
-                         </div>
-                       ))}
-                       <button onClick={addTextField} className={styles.square}>+</button>
-                       <button onClick={() => removeTextField(textFields.length - 1)} className={textFields.length <= 2 ? styles.disabledSquare : styles.square }
-                       disabled={textFields.length <= 2}>-</button>
-                     </td>
-                   </tr>
-                 ))}
-                      <tr>
-                     <td>
-                     <button onClick={addRow} className={styles.square}>+</button>
-                     <button onClick={dismissRow} disabled={rowCount === 1} className={rowCount === 1 ? styles.disabledSquare : styles.square}>-</button>
-                     </td>
-                   </tr>
-               </tbody>
+            <div>
+              <br /><br />
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name der Stratifizierung</th>
+                    <th>Merkmalsausprägung</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[...Array(rowCount)].map((_, rowIndex) => (
+                    <tr key={rowIndex}>
+                      <td>
+                        <input
+                          className="input"
+                          type="text"
+                          value={stratificationFields[rowIndex] || ''}
+                          onChange={(event) => handleStratificationCats(rowIndex, event)}
+                          maxLength={100}
+                          style={{width: '50%'}}
+                        />
+                      </td>
+                      <td>
+                        {textFields[rowIndex] && textFields[rowIndex].map((value, textFieldIndex) => (
+                          <>
+                            <input
+                              key={textFieldIndex}
+                              type="text"
+                              value={value || ''}
+                              onChange={(e) => handleTextFieldChange(e.target.value, rowIndex, textFieldIndex)}
+                            />
+                            <br/>
+                          </>
+                        ))}
+                        <br/>
+                        <button onClick={() => addTextField(rowIndex)} className={styles.square}>+</button>
+                        <button onClick={() => removeTextField(rowIndex)} className={textFields <= 1 ? styles.disabledSquare : styles.square}>-</button>
+                      </td>
+                    </tr>
+                  ))}
+                  <tr>
+                    <td colSpan="2">
+                      <button onClick={addRow} className={styles.square}>+</button>
+                      <button onClick={removeRow} disabled={rowCount === 1} className={rowCount === 1 ? styles.disabledSquare : styles.square}>-</button>
+                    </td>
+                  </tr>
+                </tbody>
              </table>
            </div>
           }
         </>
-     } 
+      } 
 
       <Spacer/>
 

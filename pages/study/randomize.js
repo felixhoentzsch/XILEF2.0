@@ -25,7 +25,60 @@ export default function Randomize() {
   const [createdAt, setCreatedAt] = useState('')
   const [selectedTreatment, setSelectedTreatment] = useState('')
 
+  const [study, setStudy] = useState([]);
+  const [stratification, setStraticication] = useState([])
+  const [merkmale, setMerkmale] = useState([])
+
+  const [selectedOptions, setSelectedOptions] = useState(() => initializeSelectedOptions());
+
   const router = useRouter();
+
+  const Benutzer = session?.user?.username
+
+  function initializeSelectedOptions() {
+    return stratification.map(() => null);
+  }
+  const handleOptionChange = (index, optionValue) => {
+    const updatedSelectedOptions = [...selectedOptions];
+    updatedSelectedOptions[index] = optionValue;
+    setSelectedOptions(updatedSelectedOptions);
+    console.log(selectedOptions)
+  };
+
+  useEffect(() => {
+    sendPostRequest();
+}, []);
+
+async function sendPostRequest() {
+  const key = {
+    Benutzer
+  };
+    try {
+        const response = await axios.post("http://localhost:3000/api/fetchStudyData", key, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (response.status === 201) {
+            console.log('POST-Anfrage erfolgreich:', response.data);
+            setStudy(response.data);
+            //setSuccess('Studie erfolgreich angelegt');
+        } else {
+            setError('Fehler beim aufrufen der Studiendaten');
+        }
+    } catch (error) {
+        setError("Fehler beim Anlegen der Studie");
+    }
+}
+
+useEffect(() => {
+    if (study.length > 0) {
+        const firstStudy = study[0];
+        setStraticication(firstStudy.Stratifizierung)
+        setMerkmale(firstStudy.Merkmale)
+    }
+}, [study]);
 
   const randomizePatient = async () => {
     setError ('')
@@ -40,6 +93,7 @@ export default function Randomize() {
         patientName,
         Zentrum,
         Studie,
+        selectedOptions
       };
 
       try {
@@ -103,11 +157,12 @@ useEffect(() => {
         Name: patientName,
         Zentrum: Zentrum,
         Behandlung: selectedTreatment,
-        createdAt: createdAt
+        createdAt: createdAt,
+        Strata: selectedOptions
       },
     });
   }
-});
+}, [selectedTreatment]);
 
 
   return (
@@ -135,10 +190,40 @@ useEffect(() => {
 
       <Spacer/>
 
+      {stratification.map((stratification, index) => (
+        <div key={index}>
+          <label className='p2'>{stratification}:</label>
+          <br/>
+          {merkmale[index].map((option, optionIndex) => (
+            <label key={optionIndex}>
+              <input
+                type="radio"
+                name={stratification}
+                value={option}
+                checked={selectedOptions[index] === option}
+                onChange={() => handleOptionChange(index, option)}
+                style={{marginRight: "3px"}}
+              />
+              {option}
+            </label>
+          ))}
+          <Spacer/>
+        </div>
+      ))}
+
       <button type="submit" onClick={randomizePatient} className="btn btn-primary" style={{width: "150px"}}>
         randomisieren
       </button>
+
+      {/* <div>
+        <h2>Ausgewählte Optionen:</h2>
+        {stratification.map((stratification, index) => (
+          <p key={index}>{stratification}: {selectedOptions[index] !== null ? selectedOptions[index] : "Keine Auswahl"}</p>
+        ))}
+      </div> */}
+
     </div>
+
   )
 }
 

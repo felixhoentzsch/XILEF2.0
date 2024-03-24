@@ -34,9 +34,13 @@ const studieSchema = new mongoose.Schema({
         type: Array,
         default:0
     },
-    Anzahl_Stratifizierung: {
-        type: Number,
+    Stratifizierung: {
+        type: Array,
         default: 0       
+    },
+    Merkmale:{
+        type: Array,
+        default:0
     },
     Rando_Liste:{
         type: Array,

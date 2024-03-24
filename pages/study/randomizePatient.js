@@ -5,7 +5,20 @@ import Spacer from '@/komponenten/Spacer';
 export default function RandomizePatient() {
 
     const router = useRouter();
-    const { Name, Zentrum, Behandlung, createdAt} = router.query;
+    const { Name, Zentrum, Behandlung, createdAt, Strata} = router.query;
+
+
+
+function displayStrata(strata) {
+  if (strata && Array.isArray(strata)) {
+    return strata.map((value, index) => (
+      <span key={index}>
+        {value}{index !== strata.length - 1 && ', '} 
+      </span>
+    ));
+  }
+  return null;
+}
 
     const handleNavigation = () => {
         router.push('/study/mainMenu')
@@ -44,6 +57,12 @@ export default function RandomizePatient() {
                     <td>zugewiesene Behandlung</td>
                     <td>{Behandlung}</td>
                 </tr>
+                {Strata != undefined &&
+                <tr>
+                    <td>Stratifizierungskriterien</td>
+                    <td> {displayStrata(Strata)}</td>
+                </tr>
+                }
                 <tr>
                     <td>Zeitstempel</td>
                     <td>{createdAt} GMT</td>

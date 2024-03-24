@@ -132,7 +132,7 @@ export default function StudyOverview() {
 
 
         } else if(parts[0] === "f") {
-            typOfBlocks === "fixed"
+            typOfBlocks = "fixed"
         }
 
         const originalString = inputFields.toString(); // In eine Zeichenkette umwandeln

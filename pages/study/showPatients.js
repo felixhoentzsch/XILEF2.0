@@ -37,7 +37,7 @@ export default function ShowPatients() {
       const Behandlung = study1.Name_Behandlung;
   
       const updatedPatients = patients.map((patient, index) => {
-        //console.log("Heee "+ patients[index].group)
+        console.log("Heee "+ patients[index].group)
         const groupIndex = patients[index].group; // Bestimme den Index im Behandlungsarray für den aktuellen Patienten
         const group = Behandlung[groupIndex]; // Greife auf die entsprechende Gruppe im Behandlungsarray zu
         return {
@@ -58,7 +58,7 @@ export default function ShowPatients() {
       Studien_ID
     };  
     try {
-      const response = await axios.post("https://main.d3qs3j5nnfqi5m.amplifyapp.com/api/fetchPatientsData", key, {
+      const response = await axios.post("http://localhost:3000/api/fetchPatientsData", key, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -85,7 +85,7 @@ export default function ShowPatients() {
       Benutzer
     };  
     try {
-      const response = await axios.post("https://main.d3qs3j5nnfqi5m.amplifyapp.com/api/fetchStudyData", key, {
+      const response = await axios.post("http://localhost:3000/api/fetchStudyData", key, {
         headers: {
           'Content-Type': 'application/json',
         },

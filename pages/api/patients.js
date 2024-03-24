@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
       await mongodb.dbConnect();
-      const { patientName, Zentrum, Studie } = req.body;
+      const { patientName, Zentrum, Studie, selectedOptions } = req.body;
 
       // Finde die Studie
       const foundStudy = await StudyModel.findOne({ Studienname: Studie });
@@ -26,7 +26,7 @@ export default async function handler(req, res) {
           if (!patientName || !Zentrum || !Studie) {
             return res.status(400).json({ message: 'Fehlende Parameter in der Anfrage.' });
           }
-          const newPatient = new PatientModel({ ID: patientName, group: firstValueInList, Studie: Studie, Zentrum: Zentrum  });      
+          const newPatient = new PatientModel({ ID: patientName, group: firstValueInList, Studie: Studie, Zentrum: Zentrum, Strata: selectedOptions });      
           await newPatient.save();      
         
           res.status(201).json([newPatient, foundStudy.Name_Behandlung]);

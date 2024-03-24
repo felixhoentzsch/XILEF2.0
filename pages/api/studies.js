@@ -11,9 +11,9 @@ export default async function handler(req, res) {
     try {
       await mongodb.dbConnect();
 
-      const { studyName, randomize, RandomizationParameter, group, blockSize, inputFields, list, nameFields, caseNumber, user, mail } = req.body;
+      const { studyName, randomize, RandomizationParameter, group, blockSize, inputFields, list, nameFields, caseNumber, stratificationFields, textFields, user, mail } = req.body;
 
-      const newStudy = new StudyModel({ Studienname: studyName, Methode_Randomisierung: randomize, Fallzahl: caseNumber,  Randomization_Parameter: RandomizationParameter, blockSize: blockSize, Anzahl_Gruppen: group, Verteilung: inputFields, Name_Behandlung: nameFields, Rando_Liste: list, Rando_Liste_use: list });
+      const newStudy = new StudyModel({ Studienname: studyName, Methode_Randomisierung: randomize, Fallzahl: caseNumber,  Randomization_Parameter: RandomizationParameter, blockSize: blockSize, Anzahl_Gruppen: group, Verteilung: inputFields, Name_Behandlung: nameFields,Stratifizierung: stratificationFields, Merkmale: textFields, Rando_Liste: list, Rando_Liste_use: list });
 
       await newStudy.save();
 

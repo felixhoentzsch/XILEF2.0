@@ -29,7 +29,7 @@ export default function MainMenu() {
 
   useEffect(() => {
     if (!session?.user?.username) {
-      router.push("/");
+      router.push("/home");
     }
   },);
  
